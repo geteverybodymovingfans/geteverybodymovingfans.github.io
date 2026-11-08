@@ -7,7 +7,7 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    background: #D9C3E8; /* 拼豆 D9 浅紫 */
+    background: #D9C3E8;
     color: #3d2a4a;
     font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
     font-size: 15px;
@@ -15,7 +15,7 @@
     min-height: 100vh;
   }
 
-  /* 顶部栏：浅紫底，下方细线 */
+  /* 顶栏：只做左右分区，导航整体靠右 */
   .topbar {
     background: #D9C3E8;
     border-bottom: 1px solid #b89cc9;
@@ -26,20 +26,19 @@
     justify-content: space-between;
   }
 
-  /* 左上角文字 */
+  /* 左上角只有这一行文字 */
   .brand {
     font-size: 16px;
     font-weight: 600;
     color: #4a2e5e;
-    letter-spacing: 0.3px;
     white-space: nowrap;
   }
 
-  /* 右上角：导航 + 语言 */
-  .nav-area {
+  /* 右上角一组：导航 + 语言，全部靠右 */
+  .top-right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 22px;
   }
 
   .nav-links {
@@ -54,15 +53,14 @@
     font-size: 14px;
     padding: 4px 0;
     border-bottom: 1px solid transparent;
-    transition: border-color 0.15s, color 0.15s;
+    transition: border-color 0.15s;
   }
 
   .nav-links a:hover {
-    color: #1f0f2b;
     border-bottom-color: #4a2e5e;
+    color: #1f0f2b;
   }
 
-  /* 语言切换：小地球 + 下拉 */
   .lang {
     position: relative;
     cursor: pointer;
@@ -87,7 +85,6 @@
     min-width: 110px;
     padding: 4px 0;
     z-index: 10;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
 
   .lang-dropdown a {
@@ -99,44 +96,51 @@
     white-space: nowrap;
   }
 
-  .lang-dropdown a:hover {
-    background: #c9aede;
-  }
-
+  .lang-dropdown a:hover { background: #c9aede; }
   .lang:hover .lang-dropdown { display: block; }
 
-  /* 主内容区：留白，不搞大标题 */
+  /* 主内容：作品/专辑入口，不是动态流 */
   .main {
-    padding: 40px 28px;
-    max-width: 900px;
+    padding: 48px 28px 90px;
+    max-width: 960px;
+    margin: 0 auto;
   }
 
-  .main h2 {
-    font-size: 18px;
+  .section-title {
+    font-size: 15px;
     font-weight: 600;
-    color: #4a2e5e;
-    margin-bottom: 16px;
+    color: #5c3d72;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #b89cc9;
   }
 
-  .card-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  .album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
   }
 
-  .card {
-    background: #e6d5f0; /* 比 D9 稍浅一点，区分卡片 */
+  .album-item {
+    background: #e6d5f0;
     border: 1px solid #c9aede;
-    border-radius: 6px;
-    padding: 14px 18px;
-    color: #3d2a4a;
-    font-size: 14px;
+    border-radius: 4px;
+    padding: 22px 14px;
+    text-align: center;
+    transition: background 0.15s;
   }
 
-  .card .date {
+  .album-item:hover { background: #dcc8ea; }
+
+  .album-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .album-year {
     font-size: 12px;
     color: #7a5c8f;
-    margin-right: 8px;
   }
 
   /* 右下角非官方声明 */
@@ -146,7 +150,7 @@
     right: 18px;
     font-size: 12px;
     color: #6b4f7d;
-    background: rgba(217, 195, 232, 0.85);
+    background: rgba(217, 195, 232, 0.9);
     padding: 4px 10px;
     border-radius: 3px;
     border: 1px solid #b89cc9;
@@ -161,13 +165,13 @@
       gap: 8px;
       align-items: flex-start;
     }
-    .nav-area {
+    .top-right {
       width: 100%;
       justify-content: space-between;
-      gap: 8px;
+      gap: 12px;
     }
     .nav-links { gap: 12px; flex-wrap: wrap; }
-    .main { padding: 28px 16px; }
+    .main { padding: 28px 16px 80px; }
     .disclaimer { bottom: 8px; right: 8px; font-size: 11px; }
   }
 </style>
@@ -177,11 +181,11 @@
 <header class="topbar">
   <div class="brand">G.E.M. 邓紫棋粉丝网站</div>
 
-  <div class="nav-area">
+  <div class="top-right">
     <nav class="nav-links">
       <a href="index.html">首页</a>
       <a href="tour.html">巡演</a>
-      <a href="semei.html">社媒</a>
+      <a href="shemei.html">社媒</a>
       <a href="https://cn.iamgem.com" target="_blank">官方产品</a>
       <a href="lianxi.html">联系</a>
     </nav>
@@ -197,11 +201,17 @@
 </header>
 
 <main class="main">
-  <h2>最新动态</h2>
-  <div class="card-list">
-    <div class="card"><span class="date">2025-11</span>I AM GLORIA 巡演最新场次信息待更新</div>
-    <div class="card"><span class="date">2025-10</span>新歌/合作动态占位，可替换为文字摘要与外链</div>
-    <div class="card"><span class="date">—</span>本站为粉丝自发建立，资讯仅供交流参考</div>
+  <div class="section-title">作品</div>
+  <div class="album-grid">
+    <div class="album-item"><div class="album-name">G.E.M.-EP</div><div class="album-year">2008</div></div>
+    <div class="album-item"><div class="album-name">18...</div><div class="album-year">2009</div></div>
+    <div class="album-item"><div class="album-name">My Secret</div><div class="album-year">2010</div></div>
+    <div class="album-item"><div class="album-name">Xposed</div><div class="album-year">2012</div></div>
+    <div class="album-item"><div class="album-name">新的心跳</div><div class="album-year">2015</div></div>
+    <div class="album-item"><div class="album-name">童话三部曲（另一个童话&毒苹果&睡皇后）</div><div class="album-year">2018</div></div>
+    <div class="album-item"><div class="album-name">摩天动物园</div><div class="album-year">2019</div></div>
+    <div class="album-item"><div class="album-name">启示录</div><div class="album-year">2022</div></div>
+    <div class="album-item"><div class="album-name">T.I.M.E.-EP</div><div class="album-year">2023</div></div>
   </div>
 </main>
 
