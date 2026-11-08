@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G.E.M. 邓紫棋粉丝网站</title>
+<title>G.E.M.邓紫棋粉丝网站</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -15,7 +15,6 @@
     min-height: 100vh;
   }
 
-  /* 顶栏：只做左右分区，导航整体靠右 */
   .topbar {
     background: #D9C3E8;
     border-bottom: 1px solid #b89cc9;
@@ -26,7 +25,6 @@
     justify-content: space-between;
   }
 
-  /* 左上角只有这一行文字 */
   .brand {
     font-size: 16px;
     font-weight: 600;
@@ -34,7 +32,6 @@
     white-space: nowrap;
   }
 
-  /* 右上角一组：导航 + 语言，全部靠右 */
   .top-right {
     display: flex;
     align-items: center;
@@ -99,11 +96,17 @@
   .lang-dropdown a:hover { background: #c9aede; }
   .lang:hover .lang-dropdown { display: block; }
 
-  /* 主内容：作品/专辑入口，不是动态流 */
   .main {
     padding: 48px 28px 90px;
     max-width: 960px;
     margin: 0 auto;
+  }
+
+  .welcome {
+    font-size: 20px;
+    font-weight: 600;
+    color: #4a2e5e;
+    margin-bottom: 28px;
   }
 
   .section-title {
@@ -122,13 +125,18 @@
     gap: 20px;
   }
 
+  /* 可点击卡片通用样式 */
   .album-item {
+    display: block;
     background: #e6d5f0;
     border: 1px solid #c9aede;
     border-radius: 4px;
     padding: 22px 14px;
     text-align: center;
     transition: background 0.15s;
+    color: #3d2a4a;
+    text-decoration: none;
+    cursor: pointer;
   }
 
   .album-item:hover { background: #dcc8ea; }
@@ -143,7 +151,68 @@
     color: #7a5c8f;
   }
 
-  /* 右下角非官方声明 */
+  /* 童话三部曲弹窗 */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(40, 20, 55, 0.45);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal-box {
+    background: #D9C3E8;
+    border: 1px solid #b89cc9;
+    border-radius: 6px;
+    padding: 24px 22px 20px;
+    max-width: 340px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    position: relative;
+  }
+
+  .modal-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #4a2e5e;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #b89cc9;
+  }
+
+  .modal-option {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    background: #e6d5f0;
+    border: 1px solid #c9aede;
+    border-radius: 4px;
+    color: #4a2e5e;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .modal-option:hover { background: #dcc8ea; }
+
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #6b4f7d;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .modal-close:hover { color: #1f0f2b; }
+
   .disclaimer {
     position: fixed;
     bottom: 14px;
@@ -179,7 +248,7 @@
 <body>
 
 <header class="topbar">
-  <div class="brand">G.E.M. 邓紫棋粉丝网站</div>
+  <div class="brand">G.E.M.邓紫棋粉丝网站</div>
 
   <div class="top-right">
     <nav class="nav-links">
@@ -201,21 +270,74 @@
 </header>
 
 <main class="main">
+  <div class="welcome">欢迎来到 G.E.M.邓紫棋粉丝网站！</div>
+
   <div class="section-title">作品</div>
   <div class="album-grid">
-    <div class="album-item"><div class="album-name">G.E.M.-EP</div><div class="album-year">2008</div></div>
-    <div class="album-item"><div class="album-name">18...</div><div class="album-year">2009</div></div>
-    <div class="album-item"><div class="album-name">My Secret</div><div class="album-year">2010</div></div>
-    <div class="album-item"><div class="album-name">Xposed</div><div class="album-year">2012</div></div>
-    <div class="album-item"><div class="album-name">新的心跳</div><div class="album-year">2015</div></div>
-    <div class="album-item"><div class="album-name">童话三部曲（另一个童话&毒苹果&睡皇后）</div><div class="album-year">2018</div></div>
-    <div class="album-item"><div class="album-name">摩天动物园</div><div class="album-year">2019</div></div>
-    <div class="album-item"><div class="album-name">启示录</div><div class="album-year">2022</div></div>
-    <div class="album-item"><div class="album-name">T.I.M.E.-EP</div><div class="album-year">2023</div></div>
+    <a class="album-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=yJwl4bj5qRmF" target="_blank">
+      <div class="album-name">G.E.M.-EP</div>
+      <div class="album-year">2008</div>
+    </a>
+    <a class="album-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=kFgjsPj5qUxj" target="_blank">
+      <div class="album-name">18...</div>
+      <div class="album-year">2009</div>
+    </a>
+    <a class="album-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=RxRU75j5qLHw" target="_blank">
+      <div class="album-name">MySecret</div>
+      <div class="album-year">2010</div>
+    </a>
+    <a class="album-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=iboGtgj5qSoq" target="_blank">
+      <div class="album-name">Xposed</div>
+      <div class="album-year">2012</div>
+    </a>
+    <a class="album-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=mjdKczj5q7PZ" target="_blank">
+      <div class="album-name">新的心跳</div>
+      <div class="album-year">2015</div>
+    </a>
+    <div class="album-item" onclick="openModal()">
+      <div class="album-name">童话三部曲</div>
+      <div class="album-year">2018</div>
+    </div>
+    <a class="album-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=GjToZ7j5qdrY" target="_blank">
+      <div class="album-name">摩天动物园</div>
+      <div class="album-year">2019</div>
+    </a>
+    <a class="album-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=9GBvtqj5qNcR" target="_blank">
+      <div class="album-name">启示录</div>
+      <div class="album-year">2022</div>
+    </a>
+    <a class="album-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=od2U2Uj5qWIB" target="_blank">
+      <div class="album-name">T.I.M.E.-EP</div>
+      <div class="album-year">2023</div>
+    </a>
   </div>
 </main>
 
+<!-- 童话三部曲弹窗 -->
+<div class="modal-overlay" id="fairyModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div class="modal-title">童话三部曲</div>
+    <a class="modal-option" href="https://c6.y.qq.com/base/fcgi-bin/u?__=MoyMqoj5qqMO" target="_blank">另一个童话</a>
+    <a class="modal-option" href="https://c6.y.qq.com/base/fcgi-bin/u?__=QRTRyIj5qGI6" target="_blank">毒苹果</a>
+    <a class="modal-option" href="https://c6.y.qq.com/base/fcgi-bin/u?__=JK3wCaj5q1UI" target="_blank">睡皇后</a>
+  </div>
+</div>
+
 <div class="disclaimer">此网站非官方网站，请仔细甄别</div>
+
+<script>
+  function openModal() {
+    document.getElementById('fairyModal').classList.add('active');
+  }
+  function closeModal() {
+    document.getElementById('fairyModal').classList.remove('active');
+  }
+  // 点击遮罩层关闭
+  document.getElementById('fairyModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+</script>
 
 </body>
 </html>
