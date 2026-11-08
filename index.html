@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G.E.M.邓紫棋 粉丝网站-首页</title>
+    <!-- 引入 Font Awesome 图标库 (用于语言/地球图标) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 全局重置与紫色主题 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: #2e1b3c; /* 深紫色背景，保留紫色通体感 */
+            color: #f0e6ff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        /* 顶部导航栏 —— 紫色系 */
+        .navbar {
+            background: linear-gradient(145deg, #4a1f6e, #3a1857); /* 紫色渐变 */
+            padding: 0 2rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid #b47aff;
+            flex-wrap: wrap;
+        }
+
+        /* 左侧 Logo 文字区域 */
+        .logo-area {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(180, 122, 255, 0.6);
+            white-space: nowrap;
+        }
+
+        .logo-area .gem-text {
+            color: #d9b3ff;
+            font-weight: 700;
+        }
+
+        .logo-area .site-name {
+            color: #f0e6ff;
+            margin-left: 8px;
+            font-weight: 500;
+            font-size: 1.4rem;
+        }
+
+        /* 右侧导航区: 链接 + 语言切换 */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #e0ccff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.4rem 0;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            border-bottom: 2px solid #b47aff;
+            text-shadow: 0 0 6px #b47aff;
+        }
+
+        /* 特殊外链图标 */
+        .nav-links a[target="_blank"]::after {
+            content: " \f08e";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 400;
+            font-size: 0.8rem;
+            margin-left: 4px;
+            opacity: 0.8;
+        }
+
+        /* 语言切换下拉 */
+        .lang-switch {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 0.9rem;
+            border-radius: 30px;
+            transition: background 0.2s;
+            border: 1px solid #a06ed6;
+            color: #e8d6ff;
+        }
+
+        .lang-switch:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .lang-switch i {
+            margin-right: 6px;
+            font-size: 1rem;
+        }
+
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: #3a1857;
+            border: 1px solid #b47aff;
+            border-radius: 10px;
+            padding: 8px 0;
+            min-width: 140px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            z-index: 100;
+        }
+
+        .lang-dropdown a {
+            display: block;
+            padding: 8px 18px;
+            color: #e0ccff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .lang-dropdown a:hover {
+            background: #7a4ba0;
+            color: #ffffff;
+        }
+
+        .lang-switch:hover .lang-dropdown {
+            display: block;
+        }
+
+        /* 主体内容区，用于占位，保留紫色氛围 */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d9b3ff, #b47aff, #f0e6ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(180, 122, 255, 0.4);
+        }
+
+        .hero-sub {
+            font-size: 1.3rem;
+            color: #c9a9ff;
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-quote {
+            font-size: 1.1rem;
+            background: rgba(90, 40, 140, 0.5);
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            border-left: 6px solid #b47aff;
+            border-right: 6px solid #b47aff;
+            color: #e8d6ff;
+            font-style: italic;
+            max-width: 800px;
+        }
+
+        /* 右下角非官方声明小字 */
+        .disclaimer {
+            position: fixed;
+            bottom: 18px;
+            right: 24px;
+            font-size: 0.8rem;
+            color: #bca0e0;
+            background: rgba(30, 12, 45, 0.8);
+            padding: 8px 16px;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
+            border: 1px solid #5d3b82;
+            letter-spacing: 0.5px;
+            z-index: 999;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.3s;
+        }
+
+        .disclaimer i {
+            margin-right: 6px;
+            color: #b47aff;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 0.8rem 1.5rem;
+                height: auto;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+            }
+
+            .nav-right {
+                width: 100%;
+                justify-content: space-between;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .logo-area {
+                font-size: 1.3rem;
+            }
+
+            .logo-area .site-name {
+                font-size: 1.2rem;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .disclaimer {
+                bottom: 12px;
+                right: 12px;
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+
+            .lang-switch {
+                padding: 0.3rem 0.7rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="navbar">
+        <!-- 左上角文字: G.E.M. 邓紫棋粉丝网站 (按照要求每个字母后加英文句点) -->
+        <div class="logo-area">
+            <span class="gem-text">G.E.M.</span>
+            <span class="site-name">邓紫棋粉丝网站</span>
+        </div>
+
+        <!-- 右侧: 导航链接 + 语言切换 -->
+        <div class="nav-right">
+            <nav class="nav-links">
+                <!-- 首页 index.html (当前页) -->
+                <a href="index.html" class="active">首页</a>
+                <!-- 巡演页 tour.html (注意: 用户要求是 tour.html 不是 tor.html, 这里正确拼写为 tour.html) -->
+                <a href="tour.html">巡演</a>
+                <!-- 社媒页: 用户写的是 "semei.html", 可能为拼写误差, 但遵循原样, 也可以写为 shemei / social, 这里采用 seme.html 更合理？但用户说 semei.html，按用户来: semei.html -->
+                <a href="semei.html">社媒</a>
+                <!-- 官方产品外链 -->
+                <a href="https://cn.iamgem.com" target="_blank">官方产品</a>
+                <!-- 联系页 -->
+                <a href="lianxi.html">联系</a>
+            </nav>
+
+            <!-- 语言切换下拉 (地球图标) -->
+            <div class="lang-switch">
+                <i class="fas fa-globe"></i> 语言
+                <div class="lang-dropdown">
+                    <!-- 点击简体中文跳转到当前页的中文版 (index.html) -->
+                    <a href="index.html">简体中文</a>
+                    <!-- 点击 English 跳转到英文版 index-en.html (按照要求) -->
+                    <a href="index-en.html">English</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 (简单占位，不干扰导航和声明) -->
+    <main class="main-content">
+        <h1 class="hero-title">欢迎来到 G.E.M. 邓紫棋粉丝网站</h1>
+        <p class="hero-sub">紫棋放心飞，棋士永相随</p>
+        <div class="hero-quote">
+            “无论世界如何变化，音乐始终是我们的光。”
+        </div>
+    </main>
+
+    <!-- 右下角非官方小字 (一直固定) -->
+    <div class="disclaimer">
+        <i class="fas fa-exclamation-triangle"></i> 此网站非官方网站，请仔细甄别
+    </div>
+
+    <!-- 简单脚本确保语言切换和链接正常工作，实际无需额外操作 -->
+</body>
+</html>
