@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社媒 - G.E.M.邓紫棋粉丝网站</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: linear-gradient(135deg, #d8a94b 0%, #e4c574 20%, #c9a7e2 55%, #8b5fbf 100%);
+    background-attachment: fixed;
+    color: #fff;
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255, 221, 150, 0.35), transparent 26%),
+      radial-gradient(circle at 80% 0%, rgba(153, 92, 211, 0.45), transparent 28%),
+      radial-gradient(circle at 90% 90%, rgba(90, 40, 140, 0.35), transparent 30%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .topbar {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 0 28px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 14px rgba(60, 20, 100, 0.18);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .brand {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 10px rgba(110, 45, 170, 0.35);
+  }
+
+  .top-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 22px;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.25s ease;
+    position: relative;
+    text-shadow: 0 1px 6px rgba(90, 30, 140, 0.25);
+  }
+  .nav-links a:hover,
+  .nav-links a.active {
+    border-bottom-color: #ffe28a;
+    color: #fff8c8;
+  }
+
+  .lang {
+    position: relative;
+    cursor: pointer;
+    color: #fff;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 0;
+    transition: color 0.25s;
+    text-shadow: 0 1px 6px rgba(90, 30, 140, 0.25);
+  }
+  .lang:hover {
+    color: #ffe28a;
+  }
+
+  .lang-dropdown {
+    display: none;
+    position: absolute;
+    top: 32px;
+    right: 0;
+    background: rgba(40, 10, 70, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    min-width: 120px;
+    padding: 6px 0;
+    z-index: 10;
+    box-shadow: 0 8px 20px rgba(60, 20, 100, 0.35);
+    overflow: hidden;
+  }
+  .lang-dropdown a {
+    display: block;
+    padding: 10px 16px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .lang-dropdown a:hover {
+    background: rgba(255, 226, 138, 0.18);
+  }
+  .lang:hover .lang-dropdown {
+    display: block;
+  }
+
+  .main {
+    position: relative;
+    z-index: 1;
+    padding: 48px 28px 90px;
+    max-width: 1020px;
+    margin: 0 auto;
+  }
+
+  .page-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 36px;
+    text-shadow: 0 2px 10px rgba(60, 20, 100, 0.35);
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom:24px;
+    padding-bottom:10px;
+    border-bottom:2px solid rgba(255,255,255,0.35);
+  }
+
+  .social-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    gap:20px;
+  }
+  .social-card{
+    background: rgba(255, 255, 255, 0.22);
+    border:1px solid rgba(255,255,255,0.32);
+    border-radius:12px;
+    padding:24px 16px;
+    text-align:center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(60,20,100,0.12);
+    transition: all 0.3s ease;
+  }
+  .social-card:hover{
+    background:rgba(255,255,255,0.32);
+    transform:translateY(-5px);
+    border-color:rgba(255, 226, 138, 0.55);
+    box-shadow:0 12px 24px rgba(60,20,100,0.22);
+  }
+  .social-card a{
+    color:#fff;
+    text-decoration:none;
+    display:block;
+  }
+  .social-name{
+    font-size:16px;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .social-desc{
+    font-size:13px;
+    color:#ffe9a8;
+  }
+
+  .disclaimer {
+    position: fixed;
+    bottom: 16px;
+    right: 20px;
+    font-size: 12px;
+    color: #fff;
+    background: rgba(40, 10, 70, 0.45);
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  }
+
+  @media (max-width: 760px) {
+    .topbar {
+      flex-direction: column;
+      height: auto;
+      padding: 12px 16px;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .top-right {
+      width: 100%;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .nav-links { gap: 14px; flex-wrap: wrap; }
+    .main { padding: 28px 16px 80px; }
+    .page-title { font-size: 20px; }
+    .social-grid{grid-template-columns:1fr;}
+    .disclaimer {
+      bottom: 10px;
+      right: 10px;
+      font-size: 11px;
+      max-width: 180px;
+    }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">G.E.M.邓紫棋粉丝网站</div>
+  <div class="top-right">
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="tour.html">巡演</a>
+      <a href="socials.html" class="active">社媒</a>
+      <a href="https://cn.iamgem.com" target="_blank">官方产品</a>
+      <a href="contact.html">联系</a>
+    </nav>
+    <div class="lang">
+      🌐
+      <div class="lang-dropdown">
+        <a href="socials.html">简体中文</a>
+        <a href="socials-en.html">English</a>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="main">
+  <div class="page-title">社交媒体</div>
+  <div class="section-title">官方账号入口</div>
+  <div class="social-grid">
+    <div class="social-card">
+      <a href="https://www.douyin.com/user/MS4wLjABAAAAh7MdVA-UbMYLeO3_zhA_Z-Mrkh8cDwBCU_qQqucnrFE" target="_blank">
+        <div class="social-name">抖音</div>
+        <div class="social-desc">国内短视频平台</div>
+      </a>
+    </div>
+    <div class="social-card">
+      <a href="https://weibo.com/u/1705586121" target="_blank">
+        <div class="social-name">微博</div>
+        <div class="social-desc">微博官方账号</div>
+      </a>
+    </div>
+    <div class="social-card">
+      <a href="https://www.xiaohongshu.com/user/profile/5b8cc0472611925a1caca48a?xhsshare=CopyLink&appuid=5b8cc0472611925a1caca48a&apptime=1652072366" target="_blank">
+        <div class="social-name">小红书</div>
+        <div class="social-desc">生活分享平台</div>
+      </a>
+    </div>
+    <div class="social-card">
+      <a href="https://twitter.com/gemoving?s=21&t=5F6gGJEOvDokoWmQX1AZ3g" target="_blank">
+        <div class="social-name">X(Twitter)</div>
+        <div class="social-desc">海外社交平台</div>
+      </a>
+    </div>
+    <div class="social-card">
+      <a href="https://www.facebook.com/G.E.M.OfficialPage" target="_blank">
+        <div class="social-name">Facebook</div>
+        <div class="social-desc">海外主页</div>
+      </a>
+    </div>
+    <div class="social-card">
+      <a href="https://instagram.com/gem0816?igshid=YmMyMTA2M2Y=" target="_blank">
+        <div class="social-name">Instagram</div>
+        <div class="social-desc">图片社交平台</div>
+      </a>
+    </div>
+    <div class="social-card">
+      <a href="https://youtube.com/c/gem0816" target="_blank">
+        <div class="social-name">YouTube</div>
+        <div class="social-desc">音乐视频频道</div>
+      </a>
+    </div>
+  </div>
+</main>
+<div class="disclaimer">此网站非官方网站，请仔细甄别</div>
+</body>
+</html>
