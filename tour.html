@@ -5,183 +5,232 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>巡演日程 - G.E.M.邓紫棋粉丝网站</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: #D9C3E8;
-    color: #3d2a4a;
-    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    min-height: 100vh;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
-  /* 顶栏：只做左右分区，导航整体靠右 */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    /* 左下金色到右上紫色的斜向渐变 和首页保持完全一致 */
+    background: linear-gradient(135deg, #d8a94b 0%, #e4c574 20%, #c9a7e2 55%, #8b5fbf 100%);
+    background-attachment: fixed;
+    color: #fff;
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* 叠加一层柔光，和首页完全一致 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255, 221, 150, 0.35), transparent 26%),
+      radial-gradient(circle at 80% 0%, rgba(153, 92, 211, 0.45), transparent 28%),
+      radial-gradient(circle at 90% 90%, rgba(90, 40, 140, 0.35), transparent 30%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .topbar {
-    background: #D9C3E8;
-    border-bottom: 1px solid #b89cc9;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     padding: 0 28px;
-    height: 56px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0 2px 14px rgba(60, 20, 100, 0.18);
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
 
   .brand {
-    font-size: 16px;
-    font-weight: 600;
-    color: #4a2e5e;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
     white-space: nowrap;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 10px rgba(110, 45, 170, 0.35);
   }
 
   .top-right {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 24px;
   }
 
   .nav-links {
     display: flex;
-    gap: 18px;
+    gap: 22px;
     align-items: center;
   }
 
   .nav-links a {
-    color: #4a2e5e;
+    color: #fff;
     text-decoration: none;
-    font-size: 14px;
-    padding: 4px 0;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.15s;
+    font-size: 15px;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.25s ease;
+    position: relative;
+    text-shadow: 0 1px 6px rgba(90, 30, 140, 0.25);
   }
-
-  .nav-links a:hover, .nav-links a.active {
-    border-bottom-color: #4a2e5e;
-    color: #1f0f2b;
+  .nav-links a:hover,
+  .nav-links a.active {
+    border-bottom-color: #ffe28a;
+    color: #fff8c8;
   }
 
   .lang {
     position: relative;
     cursor: pointer;
-    color: #4a2e5e;
-    font-size: 14px;
+    color: #fff;
+    font-size: 15px;
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 4px 0;
+    gap: 6px;
+    padding: 6px 0;
+    transition: color 0.25s;
+    text-shadow: 0 1px 6px rgba(90, 30, 140, 0.25);
   }
-
-  .lang:hover { color: #1f0f2b; }
+  .lang:hover {
+    color: #ffe28a;
+  }
 
   .lang-dropdown {
     display: none;
     position: absolute;
-    top: 26px;
+    top: 32px;
     right: 0;
-    background: #D9C3E8;
-    border: 1px solid #b89cc9;
-    border-radius: 4px;
-    min-width: 110px;
-    padding: 4px 0;
+    background: rgba(40, 10, 70, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    min-width: 120px;
+    padding: 6px 0;
     z-index: 10;
+    box-shadow: 0 8px 20px rgba(60, 20, 100, 0.35);
+    overflow: hidden;
   }
-
   .lang-dropdown a {
     display: block;
-    padding: 6px 14px;
-    color: #4a2e5e;
+    padding: 10px 16px;
+    color: #fff;
     text-decoration: none;
     font-size: 14px;
     white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .lang-dropdown a:hover {
+    background: rgba(255, 226, 138, 0.18);
+  }
+  .lang:hover .lang-dropdown {
+    display: block;
   }
 
-  .lang-dropdown a:hover { background: #c9aede; }
-  .lang:hover .lang-dropdown { display: block; }
-
-  /* 主内容区 */
   .main {
+    position: relative;
+    z-index: 1;
     padding: 48px 28px 90px;
     max-width: 1100px;
     margin: 0 auto;
   }
 
   .page-title {
-    font-size: 20px;
-    font-weight: 600;
-    color: #4a2e5e;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
     margin-bottom: 36px;
+    text-shadow: 0 2px 10px rgba(60, 20, 100, 0.35);
   }
 
-  /* 巡演大分类区块 */
   .tour-section {
     margin-bottom: 48px;
   }
 
   .tour-heading {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
-    color: #5c3d72;
+    color: #fff;
     text-align: center;
     margin-bottom: 24px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #b89cc9;
-    letter-spacing: 1px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+    letter-spacing: 1.2px;
+    text-shadow: 0 2px 8px rgba(60, 20, 100, 0.35);
   }
 
-  /* 日期卡片网格 */
   .tour-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 12px;
+    gap: 14px;
   }
 
   .tour-card {
-    background: #e6d5f0;
-    border: 1px solid #c9aede;
-    border-radius: 4px;
-    padding: 12px 14px;
-    transition: background 0.15s;
+    background: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 12px;
+    padding: 14px 16px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(60,20,100,0.12);
   }
-
-  .tour-card:hover { background: #dcc8ea; }
+  .tour-card:hover {
+    background: rgba(255, 255, 255, 0.32);
+    transform: translateY(-4px);
+    border-color: rgba(255, 226, 138, 0.55);
+    box-shadow: 0 10px 22px rgba(60,20,100,0.22);
+  }
 
   .tour-date {
     font-size: 13px;
-    color: #6b4f7d;
-    margin-bottom: 2px;
+    color: #ffe9a8;
+    margin-bottom: 4px;
     font-weight: 500;
   }
-
   .tour-city {
     font-size: 15px;
     font-weight: 600;
-    color: #3d2a4a;
-    margin-bottom: 2px;
+    color: #fff;
+    margin-bottom: 3px;
   }
-
   .tour-venue {
     font-size: 13px;
-    color: #7a5c8f;
+    color: #f0e4f8;
   }
 
   .disclaimer {
     position: fixed;
-    bottom: 14px;
-    right: 18px;
+    bottom: 16px;
+    right: 20px;
     font-size: 12px;
-    color: #6b4f7d;
-    background: rgba(217, 195, 232, 0.9);
-    padding: 4px 10px;
-    border-radius: 3px;
-    border: 1px solid #b89cc9;
+    color: #fff;
+    background: rgba(40, 10, 70, 0.45);
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
     z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
   }
 
   @media (max-width: 760px) {
     .topbar {
       flex-direction: column;
       height: auto;
-      padding: 10px 16px;
-      gap: 8px;
+      padding: 12px 16px;
+      gap: 10px;
       align-items: flex-start;
     }
     .top-right {
@@ -189,27 +238,31 @@
       justify-content: space-between;
       gap: 12px;
     }
-    .nav-links { gap: 12px; flex-wrap: wrap; }
+    .nav-links { gap: 14px; flex-wrap: wrap; }
     .main { padding: 28px 16px 80px; }
     .tour-grid { grid-template-columns: 1fr; }
-    .disclaimer { bottom: 8px; right: 8px; font-size: 11px; }
+    .page-title { font-size: 20px; }
+    .tour-heading { font-size:18px; }
+    .disclaimer {
+      bottom: 10px;
+      right: 10px;
+      font-size: 11px;
+      max-width: 180px;
+    }
   }
 </style>
 </head>
 <body>
-
 <header class="topbar">
   <div class="brand">G.E.M.邓紫棋粉丝网站</div>
-
   <div class="top-right">
     <nav class="nav-links">
       <a href="index.html">首页</a>
       <a href="tour.html" class="active">巡演</a>
-      <a href="shemei.html">社媒</a>
+      <a href="socials.html">社媒</a>
       <a href="https://cn.iamgem.com" target="_blank">官方产品</a>
-      <a href="lianxi.html">联系</a>
+      <a href="contact.html">联系</a>
     </nav>
-
     <div class="lang">
       🌐
       <div class="lang-dropdown">
@@ -219,10 +272,8 @@
     </div>
   </div>
 </header>
-
 <main class="main">
   <div class="page-title">巡演日程</div>
-
   <!-- I AM GLORIA 巡演 -->
   <section class="tour-section">
     <h2 class="tour-heading">I AM GLORIA 世界巡回演唱会</h2>
@@ -231,145 +282,142 @@
       <div class="tour-card"><div class="tour-date">2026/9/11-13, 9/19-20, 9/25-27</div><div class="tour-city">深圳</div><div class="tour-venue">深圳大运中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2026/8/21-23</div><div class="tour-city">重庆</div><div class="tour-venue">重庆奥体中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2026/8/14-16</div><div class="tour-city">嘉兴</div><div class="tour-venue">嘉兴市体育中心体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2026/8/7-9</div><div class="tour-city">南昌</div><div class="tour-venue">南昌国际体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2026/7/24-26</div><div class="tour-city">天津</div><div class="tour-venue">天津奥林匹克中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2026/6/6</div><div class="tour-city">吉隆坡</div><div class="tour-venue">NATIONAL STADIUM BUKIT JALIL (武吉加里尔国家体育场)</div></div>
       <div class="tour-card"><div class="tour-date">2026/5/23</div><div class="tour-city">新加坡</div><div class="tour-venue">NATIONAL STADIUM (新加坡国家体育场)</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2026/5/1-3</div><div class="tour-city">厦门</div><div class="tour-venue">厦门白鹭体育中心-白鹭体育场</div></div>
       <div class="tour-card"><div class="tour-date">2026/4/9-12</div><div class="tour-city">台北</div><div class="tour-venue">台北大巨蛋</div></div>
       <div class="tour-card"><div class="tour-date">2025/12/26-28, 31, 2026/1/3-4, 1/9-10</div><div class="tour-city">广州</div><div class="tour-venue">广东省奥林匹克体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2025/12/6-7</div><div class="tour-city">三亚</div><div class="tour-venue">三亚市体育中心白鹭体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2025/11/29-30</div><div class="tour-city">南宁</div><div class="tour-venue">广西体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2025/11/15-16</div><div class="tour-city">福州</div><div class="tour-venue">福州海峡奥体中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2025/11/1, 2</div><div class="tour-city">武汉</div><div class="tour-venue">武汉体育中心主体育场</div></div>
       <div class="tour-card"><div class="tour-date">2025/10/25</div><div class="tour-city">徐州</div><div class="tour-venue">徐州市奥体中心体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2025/10/18, 19</div><div class="tour-city">成都</div><div class="tour-venue">东安湖体育公园主体育场</div></div>
       <div class="tour-card"><div class="tour-date">2025/8/29-31, 9/5-7, 12-14, 19-21</div><div class="tour-city">上海</div><div class="tour-venue">上海虹口足球场</div></div>
       <div class="tour-card"><div class="tour-date">2025/8/15-17, 19</div><div class="tour-city">香港</div><div class="tour-venue">香港启德体育园启德主场馆</div></div>
       <div class="tour-card"><div class="tour-date">2025/8/2-3</div><div class="tour-city">赣州</div><div class="tour-venue">赣州市全民健身中心</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2025/7/26-27</div><div class="tour-city">洛阳</div><div class="tour-venue">洛阳市奥林匹克中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2025/7/12-13</div><div class="tour-city">沈阳</div><div class="tour-venue">沈阳奥体中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2025/6/14</div><div class="tour-city">石家庄</div><div class="tour-venue">河北奥林匹克体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2025/5/31</div><div class="tour-city">贵阳</div><div class="tour-venue">贵阳奥林匹克体育中心体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2025/5/24 - 25</div><div class="tour-city">衡阳</div><div class="tour-venue">衡阳市体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2025/5/17 - 5/18</div><div class="tour-city">襄阳</div><div class="tour-venue">襄阳奥林匹克体育中心</div></div>
       <div class="tour-card"><div class="tour-date">2025/5/10 - 5/11</div><div class="tour-city">温州</div><div class="tour-venue">温州奥体中心体育场</div></div>
-      <div class="tour-card"><div class="tour-date">2025/4/7</div><div class="tour-city">多伦多</div><div class="tour-venue">COCA-COLA COLISEUM</div></div>
-      
+      <div class="tour-card"><div class="tour-date">2025/4/7</div><div class="tour-city">多伦多</div><div class="tour-venue">COCA‑COLA COLISEUM</div></div>
+
       <div class="tour-card"><div class="tour-date">2025/3/29</div><div class="tour-city">纽约</div><div class="tour-venue">BARCLAYS CENTER</div></div>
       <div class="tour-card"><div class="tour-date">2025/3/22</div><div class="tour-city">旧金山</div><div class="tour-venue">CHASE CENTER</div></div>
       <div class="tour-card"><div class="tour-date">2025/3/15</div><div class="tour-city">拉斯维加斯</div><div class="tour-venue">MGM GRAND GARDEN ARENA</div></div>
       <div class="tour-card"><div class="tour-date">2025/3/1</div><div class="tour-city">新加坡</div><div class="tour-venue">NATIONAL STADIUM (新加坡国家体育场)</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2025/2/15</div><div class="tour-city">吉隆坡</div><div class="tour-venue">NATIONAL STADIUM BUKIT JALIL (武吉加里尔国家体育场)</div></div>
       <div class="tour-card"><div class="tour-date">2025/1/24</div><div class="tour-city">伦敦</div><div class="tour-venue">OVO ARENA WEMBLY</div></div>
       <div class="tour-card"><div class="tour-date">2025/1/21</div><div class="tour-city">巴黎</div><div class="tour-venue">ZENITH PARIS - LA VILLETTE</div></div>
       <div class="tour-card"><div class="tour-date">2025/1/11 - 1/12</div><div class="tour-city">肇庆</div><div class="tour-venue">肇庆市体育中心体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2024/12/28 - 29, 31</div><div class="tour-city">惠州</div><div class="tour-venue">惠州市奥林匹克体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/12/21 - 22</div><div class="tour-city">厦门</div><div class="tour-venue">厦门白鹭体育中心-白鹭体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/11/30 - 12/1</div><div class="tour-city">湛江</div><div class="tour-venue">湛江奥体中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/11/15 - 11/17</div><div class="tour-city">杭州</div><div class="tour-venue">杭州奥体中心体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2024/11/9 - 11/10</div><div class="tour-city">南昌</div><div class="tour-venue">南昌国际体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/10/26 - 10/27</div><div class="tour-city">苏州</div><div class="tour-venue">苏州市奥林匹克体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/10/19 - 10/20</div><div class="tour-city">重庆</div><div class="tour-venue">重庆奥体中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/10/13</div><div class="tour-city">济南</div><div class="tour-venue">济南奥林匹克体育中心体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2024/10/6 - 10/7</div><div class="tour-city">武汉</div><div class="tour-venue">武汉体育中心主体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/9/27 - 9/28</div><div class="tour-city">西安</div><div class="tour-venue">西安奥体中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/9/21 - 9/22</div><div class="tour-city">清远</div><div class="tour-venue">清远体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/9/7</div><div class="tour-city">衢州</div><div class="tour-venue">衢州市体育中心体育场</div></div>
-
       <div class="tour-card"><div class="tour-date">2024/8/22 - 8/25</div><div class="tour-city">北京</div><div class="tour-venue">国家体育场 (鸟巢)</div></div>
       <div class="tour-card"><div class="tour-date">2024/8/2 - 4, 9 - 11</div><div class="tour-city">中国澳门</div><div class="tour-venue">银河综艺馆</div></div>
       <div class="tour-card"><div class="tour-date">2024/7/27</div><div class="tour-city">呼和浩特</div><div class="tour-venue">呼和浩特体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/7/20 - 7/21</div><div class="tour-city">台州</div><div class="tour-venue">台州市体育中心体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2024/7/13</div><div class="tour-city">哈尔滨</div><div class="tour-venue">哈尔滨国际会展中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/7/6 - 7/7</div><div class="tour-city">福州</div><div class="tour-venue">福州海峡奥林匹克体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/6/29</div><div class="tour-city">郑州</div><div class="tour-venue">郑州奥林匹克体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/6/22 - 6/23</div><div class="tour-city">南京</div><div class="tour-venue">南京奥林匹克体育中心体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2024/6/15 - 6/16</div><div class="tour-city">青岛</div><div class="tour-venue">青岛市民健身中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/6/1 - 6/3</div><div class="tour-city">成都</div><div class="tour-venue">成都东安湖体育公园主体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/5/24 - 5/28</div><div class="tour-city">上海</div><div class="tour-venue">上海体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/5/18 - 5/19</div><div class="tour-city">太原</div><div class="tour-venue">山西体育中心体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2024/5/10 - 5/11</div><div class="tour-city">大连</div><div class="tour-venue">大连体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/5/2 - 5/3</div><div class="tour-city">天津</div><div class="tour-venue">天津奥体中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/4/18 - 4/21</div><div class="tour-city">佛山</div><div class="tour-venue">佛山世纪莲体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/4/12 - 4/14</div><div class="tour-city">长沙</div><div class="tour-venue">长沙贺龙体育中心体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2024/3/30 - 3/31</div><div class="tour-city">合肥</div><div class="tour-venue">合肥体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/1/20 - 1/21</div><div class="tour-city">泉州</div><div class="tour-venue">泉州海峡体育中心体育场</div></div>
       <div class="tour-card"><div class="tour-date">2024/1/6 - 1/8</div><div class="tour-city">深圳</div><div class="tour-venue">深圳湾体育中心“春茧”体育场</div></div>
       <div class="tour-card"><div class="tour-date">2023/12/23 - 12/24</div><div class="tour-city">南宁</div><div class="tour-venue">广西体育中心体育场</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2023/12/7 - 12/9</div><div class="tour-city">广州</div><div class="tour-venue">广东省奥林匹克体育中心体育场</div></div>
     </div>
   </section>
-
   <!-- Queen of Hearts 巡演 -->
   <section class="tour-section">
     <h2 class="tour-heading">Queen of Hearts 世界巡回演唱会</h2>
     <div class="tour-grid">
-      <div class="tour-card"><div class="tour-date">2019/4/27-4/28</div><div class="tour-city">高雄</div><div class="tour-venue">高雄巨蛋</div></div>
-      <div class="tour-card"><div class="tour-date">2019/4/5-4/6</div><div class="tour-city">马来西亚云顶高原</div><div class="tour-venue">云顶云星剧场</div></div>
+      <div class="tour-card"><div class="tour-date">2019/4/27‑4/28</div><div class="tour-city">高雄</div><div class="tour-venue">高雄巨蛋</div></div>
+      <div class="tour-card"><div class="tour-date">2019/4/5‑4/6</div><div class="tour-city">马来西亚云顶高原</div><div class="tour-venue">云顶云星剧场</div></div>
       <div class="tour-card"><div class="tour-date">2019/3/22</div><div class="tour-city">美国旧金山</div><div class="tour-venue">比尔·格雷厄姆市政礼堂</div></div>
-      <div class="tour-card"><div class="tour-date">2019/3/20</div><div class="tour-city">加拿大多伦多</div><div class="tour-venue">COCA-COLA COLISEUM</div></div>
-      
+      <div class="tour-card"><div class="tour-date">2019/3/20</div><div class="tour-city">加拿大多伦多</div><div class="tour-venue">COCA‑COLA COLISEUM</div></div>
+
       <div class="tour-card"><div class="tour-date">2019/3/15</div><div class="tour-city">加拿大温哥华</div><div class="tour-venue">QUEEN ELIZABETH THEATRE</div></div>
       <div class="tour-card"><div class="tour-date">2019/3/9</div><div class="tour-city">澳门</div><div class="tour-venue">金光综艺馆</div></div>
       <div class="tour-card"><div class="tour-date">2018/8/18</div><div class="tour-city">西安</div><div class="tour-venue">曲江国际会展中心B4馆</div></div>
       <div class="tour-card"><div class="tour-date">2018/8/11</div><div class="tour-city">天津</div><div class="tour-venue">天津体育馆</div></div>
-      
-      <div class="tour-card"><div class="tour-date">2018/8/4-8/5</div><div class="tour-city">上海</div><div class="tour-venue">梅赛德斯奔驰文化中心</div></div>
+
+      <div class="tour-card"><div class="tour-date">2018/8/4‑8/5</div><div class="tour-city">上海</div><div class="tour-venue">梅赛德斯奔驰文化中心</div></div>
       <div class="tour-card"><div class="tour-date">2018/7/28</div><div class="tour-city">济南</div><div class="tour-venue">济南奥体中心体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2018/7/7</div><div class="tour-city">佛山</div><div class="tour-venue">岭南明珠体育馆</div></div>
-      <div class="tour-card"><div class="tour-date">2018/6/30-7/1</div><div class="tour-city">马来西亚槟城</div><div class="tour-venue">槟城国际会展中心</div></div>
-      
+      <div class="tour-card"><div class="tour-date">2018/6/30‑7/1</div><div class="tour-city">马来西亚槟城</div><div class="tour-venue">槟城国际会展中心</div></div>
+
       <div class="tour-card"><div class="tour-date">2018/6/2</div><div class="tour-city">成都</div><div class="tour-venue">五粮液成都演艺中心</div></div>
       <div class="tour-card"><div class="tour-date">2018/5/26</div><div class="tour-city">东莞</div><div class="tour-venue">东风日产文体中心 (新篮球中心)</div></div>
       <div class="tour-card"><div class="tour-date">2018/4/1</div><div class="tour-city">美国安卡斯维尔</div><div class="tour-venue">MOHÉGAN SUN</div></div>
-      <div class="tour-card"><div class="tour-date">2018/3/23-3/25</div><div class="tour-city">桃园</div><div class="tour-venue">国立体育大学综合体育馆</div></div>
-      
+      <div class="tour-card"><div class="tour-date">2018/3/23‑3/25</div><div class="tour-city">桃园</div><div class="tour-venue">国立体育大学综合体育馆</div></div>
+
       <div class="tour-card"><div class="tour-date">2018/2/24</div><div class="tour-city">澳门</div><div class="tour-venue">金光综艺馆</div></div>
       <div class="tour-card"><div class="tour-date">2018/1/13</div><div class="tour-city">杭州</div><div class="tour-venue">黄龙体育中心体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2018/12/22</div><div class="tour-city">大连</div><div class="tour-venue">中升文化中心</div></div>
       <div class="tour-card"><div class="tour-date">2017/12/9</div><div class="tour-city">南宁</div><div class="tour-venue">广西体育中心体育馆</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2017/12/2</div><div class="tour-city">深圳</div><div class="tour-venue">深圳湾体育中心体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2017/11/25</div><div class="tour-city">郑州</div><div class="tour-venue">郑州国际会展中心</div></div>
       <div class="tour-card"><div class="tour-date">2017/11/18</div><div class="tour-city">马来西亚吉隆坡</div><div class="tour-venue">亚通体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2017/10/5</div><div class="tour-city">澳大利亚珀斯</div><div class="tour-venue">CROWN PERTH</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2017/10/2</div><div class="tour-city">澳大利亚悉尼</div><div class="tour-venue">悉尼会议中心</div></div>
       <div class="tour-card"><div class="tour-date">2017/9/30</div><div class="tour-city">澳大利亚墨尔本</div><div class="tour-venue">墨尔本国际会展中心</div></div>
-      <div class="tour-card"><div class="tour-date">2017/9/15-9/17</div><div class="tour-city">香港</div><div class="tour-venue">红磡体育馆</div></div>
+      <div class="tour-card"><div class="tour-date">2017/9/15‑9/17</div><div class="tour-city">香港</div><div class="tour-venue">红磡体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2017/9/2</div><div class="tour-city">重庆</div><div class="tour-venue">重庆国际博览中心</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2017/8/26</div><div class="tour-city">合肥</div><div class="tour-venue">合肥滨湖国际会展中心主展馆</div></div>
-      <div class="tour-card"><div class="tour-date">2017/8/12-8/13</div><div class="tour-city">新加坡</div><div class="tour-venue">新加坡室内体育馆</div></div>
+      <div class="tour-card"><div class="tour-date">2017/8/12‑8/13</div><div class="tour-city">新加坡</div><div class="tour-venue">新加坡室内体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2017/8/5</div><div class="tour-city">苏州</div><div class="tour-venue">苏州市体育中心体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2017/5/28</div><div class="tour-city">武汉</div><div class="tour-venue">武汉体育中心体育馆</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2017/5/20</div><div class="tour-city">长沙</div><div class="tour-venue">湖南国际会展中心</div></div>
       <div class="tour-card"><div class="tour-date">2017/5/13</div><div class="tour-city">南昌</div><div class="tour-venue">南昌国际体育中心</div></div>
       <div class="tour-card"><div class="tour-date">2017/4/29</div><div class="tour-city">洛阳</div><div class="tour-venue">洛阳新区体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2017/4/15</div><div class="tour-city">北京</div><div class="tour-venue">首都体育馆</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2017/4/8</div><div class="tour-city">南京</div><div class="tour-venue">南京奥林匹克体育中心</div></div>
-      <div class="tour-card"><div class="tour-date">2017/4/1-4/2</div><div class="tour-city">广州</div><div class="tour-venue">广州国际体育演艺中心</div></div>
+      <div class="tour-card"><div class="tour-date">2017/4/1‑4/2</div><div class="tour-city">广州</div><div class="tour-venue">广州国际体育演艺中心</div></div>
     </div>
   </section>
-
   <!-- G.E.M. X.X.X. Live 巡演 -->
   <section class="tour-section">
     <h2 class="tour-heading">G.E.M. X.X.X. Live 世界巡回演唱会</h2>
@@ -378,69 +426,68 @@
       <div class="tour-card"><div class="tour-date">2015/11/18</div><div class="tour-city">美国芝加哥</div><div class="tour-venue">CHICAGO THEATRE</div></div>
       <div class="tour-card"><div class="tour-date">2015/11/15</div><div class="tour-city">美国纽瓦克</div><div class="tour-venue">PRUDENTIAL CENTER</div></div>
       <div class="tour-card"><div class="tour-date">2015/11/11</div><div class="tour-city">加拿大多伦多</div><div class="tour-venue">AIR CANADA CENTRE</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2015/11/7</div><div class="tour-city">美国英格尔伍德</div><div class="tour-venue">论坛体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2015/11/6</div><div class="tour-city">美国圣荷西</div><div class="tour-venue">SAP CENTER AT SAN JOSE</div></div>
       <div class="tour-card"><div class="tour-date">2015/11/3</div><div class="tour-city">加拿大温哥华</div><div class="tour-venue">PACIFIC COLISEUM</div></div>
-      <div class="tour-card"><div class="tour-date">2015/10/23-10/24</div><div class="tour-city">马来西亚云顶高原</div><div class="tour-venue">云顶云星剧场</div></div>
-      
+      <div class="tour-card"><div class="tour-date">2015/10/23‑10/24</div><div class="tour-city">马来西亚云顶高原</div><div class="tour-venue">云顶云星剧场</div></div>
+
       <div class="tour-card"><div class="tour-date">2015/8/1</div><div class="tour-city">北京</div><div class="tour-venue">北京工人体育场</div></div>
       <div class="tour-card"><div class="tour-date">2015/7/25</div><div class="tour-city">太原</div><div class="tour-venue">山西省体育中心体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2015/7/18</div><div class="tour-city">东莞</div><div class="tour-venue">东莞东风日产文体中心 (新篮球中心)</div></div>
       <div class="tour-card"><div class="tour-date">2015/7/10</div><div class="tour-city">长春</div><div class="tour-venue">长春五环体育馆</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2015/5/30</div><div class="tour-city">合肥</div><div class="tour-venue">合肥滨湖国际会展中心</div></div>
       <div class="tour-card"><div class="tour-date">2015/5/23</div><div class="tour-city">上海</div><div class="tour-venue">上海体育场</div></div>
       <div class="tour-card"><div class="tour-date">2015/5/16</div><div class="tour-city">惠州</div><div class="tour-venue">惠州奥林匹克体育场</div></div>
       <div class="tour-card"><div class="tour-date">2015/5/9</div><div class="tour-city">重庆</div><div class="tour-venue">重庆国际会议展览中心</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2015/5/2</div><div class="tour-city">高雄</div><div class="tour-venue">高雄巨蛋</div></div>
       <div class="tour-card"><div class="tour-date">2015/3/12</div><div class="tour-city">台北</div><div class="tour-venue">台北小巨蛋</div></div>
       <div class="tour-card"><div class="tour-date">2015/3/1</div><div class="tour-city">美国安卡斯维尔</div><div class="tour-venue">MOHÉGAN SUN</div></div>
       <div class="tour-card"><div class="tour-date">2015/2/21</div><div class="tour-city">美国拉斯维加斯</div><div class="tour-venue">THE VENETIAN LAS VEGAS</div></div>
-      
-      <div class="tour-card"><div class="tour-date">2015/1/30-2/1</div><div class="tour-city">新加坡</div><div class="tour-venue">新加坡博览中心</div></div>
-      <div class="tour-card"><div class="tour-date">2015/1/23-1/24</div><div class="tour-city">马来西亚吉隆坡</div><div class="tour-venue">布特拉室内体育馆</div></div>
-      <div class="tour-card"><div class="tour-date">2015/1/14-1/18</div><div class="tour-city">香港</div><div class="tour-venue">红磡体育馆</div></div>
+
+      <div class="tour-card"><div class="tour-date">2015/1/30‑2/1</div><div class="tour-city">新加坡</div><div class="tour-venue">新加坡博览中心</div></div>
+      <div class="tour-card"><div class="tour-date">2015/1/23‑1/24</div><div class="tour-city">马来西亚吉隆坡</div><div class="tour-venue">布特拉室内体育馆</div></div>
+      <div class="tour-card"><div class="tour-date">2015/1/14‑1/18</div><div class="tour-city">香港</div><div class="tour-venue">红磡体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2014/12/6</div><div class="tour-city">济南</div><div class="tour-venue">济南奥林匹克体育中心体育馆</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2014/11/29</div><div class="tour-city">南昌</div><div class="tour-venue">南昌国际体育中心体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2014/11/22</div><div class="tour-city">南宁</div><div class="tour-venue">广西体育中心体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2014/11/8</div><div class="tour-city">南京</div><div class="tour-venue">南京奥林匹克体育中心体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2014/11/1</div><div class="tour-city">泉州</div><div class="tour-venue">泉州市海峡中心体育馆</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2014/10/25</div><div class="tour-city">成都</div><div class="tour-venue">成都市体育中心</div></div>
-      <div class="tour-card"><div class="tour-date">2014/10/17-10/19</div><div class="tour-city">广州</div><div class="tour-venue">广州国际体育演艺中心</div></div>
+      <div class="tour-card"><div class="tour-date">2014/10/17‑10/19</div><div class="tour-city">广州</div><div class="tour-venue">广州国际体育演艺中心</div></div>
       <div class="tour-card"><div class="tour-date">2014/10/10</div><div class="tour-city">沈阳</div><div class="tour-venue">沈阳奥体中心体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2014/8/11</div><div class="tour-city">新西兰奥克兰</div><div class="tour-venue">TRUSTS STADIUM</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2014/8/9</div><div class="tour-city">澳大利亚墨尔本</div><div class="tour-venue">MELBOURNE CONVENTION AND EXHIBITION CENTRE</div></div>
       <div class="tour-card"><div class="tour-date">2014/8/7</div><div class="tour-city">澳大利亚悉尼</div><div class="tour-venue">SYDNEY ENTERTAINMENT CENTRE</div></div>
       <div class="tour-card"><div class="tour-date">2014/8/5</div><div class="tour-city">澳大利亚珀斯</div><div class="tour-venue">CROWN PERTH</div></div>
       <div class="tour-card"><div class="tour-date">2014/8/2</div><div class="tour-city">郑州</div><div class="tour-venue">郑州国际会展中心</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2014/7/31</div><div class="tour-city">厦门</div><div class="tour-venue">厦门国际会展中心</div></div>
       <div class="tour-card"><div class="tour-date">2014/7/26</div><div class="tour-city">天津</div><div class="tour-venue">天津体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2014/7/23</div><div class="tour-city">大连</div><div class="tour-venue">中升文化中心</div></div>
       <div class="tour-card"><div class="tour-date">2014/7/19</div><div class="tour-city">哈尔滨</div><div class="tour-venue">哈尔滨国际会展体育中心体育馆</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2014/7/17</div><div class="tour-city">西安</div><div class="tour-venue">西安曲江国际会展中心B4馆</div></div>
       <div class="tour-card"><div class="tour-date">2014/7/11 - 7/12</div><div class="tour-city">杭州</div><div class="tour-venue">黄龙体育中心体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2014/7/4 - 7/6</div><div class="tour-city">上海</div><div class="tour-venue">梅赛德斯奔驰文化中心</div></div>
       <div class="tour-card"><div class="tour-date">2014/6/28</div><div class="tour-city">深圳</div><div class="tour-venue">深圳湾体育中心</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2014/5/31</div><div class="tour-city">长沙</div><div class="tour-venue">湖南国际会展中心</div></div>
       <div class="tour-card"><div class="tour-date">2014/5/24</div><div class="tour-city">武汉</div><div class="tour-venue">武汉体育中心体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2014/5/16 - 5/17</div><div class="tour-city">北京</div><div class="tour-venue">万事达中心 (北京凯迪拉克中心)</div></div>
       <div class="tour-card"><div class="tour-date">2014/5/10</div><div class="tour-city">福州</div><div class="tour-venue">福州海峡国际会展中心1号馆</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2014/5/1 - 5/3</div><div class="tour-city">澳门</div><div class="tour-venue">金光综艺馆</div></div>
       <div class="tour-card"><div class="tour-date">2014/2/13</div><div class="tour-city">佛山</div><div class="tour-venue">岭南明珠体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2013/9/21</div><div class="tour-city">广州</div><div class="tour-venue">广州体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2013/4/12 - 4/16</div><div class="tour-city">香港</div><div class="tour-venue">红磡体育馆</div></div>
     </div>
   </section>
-
   <!-- G.E.M. Get Everybody Moving 巡演 -->
   <section class="tour-section">
     <h2 class="tour-heading">G.E.M. Get Everybody Moving 世界巡回演唱会</h2>
@@ -449,20 +496,17 @@
       <div class="tour-card"><div class="tour-date">2012/4/29</div><div class="tour-city">广州</div><div class="tour-venue">番禺英东体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2012/4/21</div><div class="tour-city">佛山</div><div class="tour-venue">岭南明珠体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2011/12/19</div><div class="tour-city">加拿大多伦多</div><div class="tour-venue">HERSHEY CENTRE</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2011/12/16</div><div class="tour-city">加拿大温哥华</div><div class="tour-venue">QUEEN ELIZABETH THEATRE</div></div>
       <div class="tour-card"><div class="tour-date">2011/10/22</div><div class="tour-city">澳门</div><div class="tour-venue">金光综艺馆</div></div>
       <div class="tour-card"><div class="tour-date">2011/10/15</div><div class="tour-city">广州</div><div class="tour-venue">广州体育馆</div></div>
       <div class="tour-card"><div class="tour-date">2011/9/9 - 9/10</div><div class="tour-city">香港</div><div class="tour-venue">红磡体育馆</div></div>
-      
+
       <div class="tour-card"><div class="tour-date">2011/8/27</div><div class="tour-city">澳大利亚悉尼</div><div class="tour-venue">SYDNEY ENTERTAINMENT CENTRE</div></div>
       <div class="tour-card"><div class="tour-date">2011/5/14 - 5/16</div><div class="tour-city">香港</div><div class="tour-venue">红磡体育馆</div></div>
     </div>
   </section>
-
 </main>
-
 <div class="disclaimer">此网站非官方网站，请仔细甄别</div>
-
 </body>
 </html>
