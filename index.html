@@ -10,11 +10,9 @@
     padding: 0;
     box-sizing: border-box;
   }
-
   html {
     scroll-behavior: smooth;
   }
-
   body {
     /* 左下金色到右上紫色的斜向渐变 */
     background: linear-gradient(135deg, #d8a94b 0%, #e4c574 20%, #c9a7e2 55%, #8b5fbf 100%);
@@ -26,7 +24,6 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-
   /* 叠加一层柔光，让文字更清楚 */
   body::before {
     content: "";
@@ -39,7 +36,6 @@
     pointer-events: none;
     z-index: 0;
   }
-
   .topbar {
     background: rgba(255, 255, 255, 0.18);
     backdrop-filter: blur(14px);
@@ -55,7 +51,6 @@
     top: 0;
     z-index: 50;
   }
-
   .brand {
     font-size: 18px;
     font-weight: 700;
@@ -64,19 +59,16 @@
     letter-spacing: 0.5px;
     text-shadow: 0 2px 10px rgba(110, 45, 170, 0.35);
   }
-
   .top-right {
     display: flex;
     align-items: center;
     gap: 24px;
   }
-
   .nav-links {
     display: flex;
     gap: 22px;
     align-items: center;
   }
-
   .nav-links a {
     color: #fff;
     text-decoration: none;
@@ -87,12 +79,10 @@
     position: relative;
     text-shadow: 0 1px 6px rgba(90, 30, 140, 0.25);
   }
-
   .nav-links a:hover {
     border-bottom-color: #ffe28a;
     color: #fff8c8;
   }
-
   .lang {
     position: relative;
     cursor: pointer;
@@ -105,11 +95,9 @@
     transition: color 0.25s;
     text-shadow: 0 1px 6px rgba(90, 30, 140, 0.25);
   }
-
   .lang:hover {
     color: #ffe28a;
   }
-
   .lang-dropdown {
     display: none;
     position: absolute;
@@ -125,7 +113,6 @@
     box-shadow: 0 8px 20px rgba(60, 20, 100, 0.35);
     overflow: hidden;
   }
-
   .lang-dropdown a {
     display: block;
     padding: 10px 16px;
@@ -135,22 +122,18 @@
     white-space: nowrap;
     transition: background 0.2s;
   }
-
   .lang-dropdown a:hover {
     background: rgba(255, 226, 138, 0.18);
   }
-
   .lang:hover .lang-dropdown {
     display: block;
   }
-
   .main {
     position: relative;
     z-index: 1;
     max-width: 1020px;
     margin: 0 auto;
   }
-
   .welcome-hero {
     min-height: calc(100vh - 64px);
     display: flex;
@@ -159,7 +142,6 @@
     text-align: center;
     padding: 24px;
   }
-
   .welcome-text {
     font-size: 30px;
     font-weight: 700;
@@ -170,11 +152,9 @@
       0 0 40px rgba(140, 70, 200, 0.35),
       0 4px 18px rgba(60, 20, 100, 0.45);
   }
-
   .content-wrap {
     padding: 40px 28px 100px;
   }
-
   .section-title {
     font-size: 17px;
     font-weight: 600;
@@ -185,13 +165,28 @@
     border-bottom: 2px solid rgba(255, 255, 255, 0.35);
     text-shadow: 0 2px 10px rgba(60, 20, 100, 0.35);
   }
-
+  .about-card {
+    background:rgba(255,255,255,0.22);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.32);
+    border-radius:14px;
+    padding:24px 20px;
+    margin-bottom:40px;
+    color:#fff;
+    line-height:1.8;
+    text-shadow:0 1px 6px rgba(40,10,70,0.25);
+  }
+  .about-card p {
+    margin-bottom:1em;
+  }
+  .about-card p:last-child {
+    margin-bottom:0;
+  }
   .album-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 24px;
   }
-
   .album-item {
     display: block;
     background: rgba(255, 255, 255, 0.22);
@@ -206,26 +201,22 @@
     box-shadow: 0 6px 18px rgba(60, 20, 100, 0.18);
     backdrop-filter: blur(10px);
   }
-
   .album-item:hover {
     background: rgba(255, 255, 255, 0.32);
     transform: translateY(-7px);
     border-color: rgba(255, 226, 138, 0.55);
     box-shadow: 0 14px 28px rgba(60, 20, 100, 0.28);
   }
-
   .album-name {
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 6px;
     text-shadow: 0 2px 8px rgba(60, 20, 100, 0.35);
   }
-
   .album-year {
     font-size: 13px;
     color: #ffe9a8;
   }
-
   .modal-overlay {
     display: none;
     position: fixed;
@@ -238,12 +229,10 @@
     opacity: 0;
     transition: opacity 0.3s ease;
   }
-
   .modal-overlay.active {
     display: flex;
     opacity: 1;
   }
-
   .modal-box {
     background: linear-gradient(135deg, rgba(255, 221, 150, 0.96), rgba(153, 92, 211, 0.96));
     border: 1px solid rgba(255, 255, 255, 0.35);
@@ -256,11 +245,9 @@
     transform: scale(0.92);
     transition: transform 0.3s ease;
   }
-
   .modal-overlay.active .modal-box {
     transform: scale(1);
   }
-
   .modal-title {
     font-size: 17px;
     font-weight: 600;
@@ -270,7 +257,6 @@
     border-bottom: 2px solid rgba(255, 255, 255, 0.4);
     text-shadow: 0 2px 8px rgba(60, 20, 100, 0.4);
   }
-
   .modal-option {
     display: block;
     padding: 12px 16px;
@@ -283,12 +269,10 @@
     font-size: 15px;
     transition: all 0.22s ease;
   }
-
   .modal-option:hover {
     background: rgba(255, 255, 255, 0.4);
     transform: translateX(4px);
   }
-
   .modal-close {
     position: absolute;
     top: 14px;
@@ -307,12 +291,10 @@
     justify-content: center;
     transition: all 0.2s;
   }
-
   .modal-close:hover {
     background: rgba(255, 255, 255, 0.45);
     transform: rotate(90deg);
   }
-
   .disclaimer {
     position: fixed;
     bottom: 16px;
@@ -326,7 +308,6 @@
     z-index: 999;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
   }
-
   @media (max-width: 760px) {
     .topbar {
       flex-direction: column;
@@ -335,33 +316,27 @@
       gap: 10px;
       align-items: flex-start;
     }
-
     .top-right {
       width: 100%;
       justify-content: space-between;
       gap: 12px;
     }
-
     .nav-links {
       gap: 14px;
       flex-wrap: wrap;
     }
-
     .welcome-text {
       font-size: 24px;
     }
-
     .content-wrap {
       padding: 32px 16px 90px;
     }
-
     .disclaimer {
       bottom: 10px;
       right: 10px;
       font-size: 11px;
       max-width: 180px;
     }
-
     .album-grid {
       grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       gap: 18px;
@@ -370,7 +345,6 @@
 </style>
 </head>
 <body>
-
 <header class="topbar">
   <div class="brand">G.E.M.邓紫棋粉丝网站</div>
   <div class="top-right">
@@ -390,13 +364,22 @@
     </div>
   </div>
 </header>
-
 <main class="main">
   <section class="welcome-hero">
     <div class="welcome-text">欢迎来到 G.E.M.邓紫棋粉丝网站！</div>
   </section>
-
   <section class="content-wrap">
+    <div class="section-title">关于邓紫棋</div>
+    <div class="about-card">
+      <p>邓紫棋（英语：Gloria Tang Tsz Kei；1991年8月16日—），又名G.E.M.（“Get Everybody Moving”的简称，即“让大家动起来”的意思），原名邓诗颖（英语：Gloria Tang Sze‑wing），香港创作女歌手，在外国拥有“Taylor Swift of China”之称。2008年7月10日，以16岁之龄出道，取得香港三大乐坛颁奖礼新人金奖。2012年，发行专辑《Xposed（曝光）》并夺得香港IFPI成为全年最高销量香港女歌手，凭借《Xposed（曝光）》于2013年入围第24届金曲奖最佳女歌手，成为入围金曲歌后最年轻的女歌手。2014年，因参与湖南卫视歌唱竞赛节目《我是歌手》第二季时的亮眼表现在华语地区迅速走红。</p>
+
+      <p>邓紫棋未满24岁便完成80场个人演唱会，2015年8月于北京工人体育场举办的演唱会吸引近4万人观看，同年11月于英国伦敦温布利体育馆完成第73场，也是最后一场X.X.X. Live世界巡演。2017年5月，邓紫棋于“Queen of Hearts世界巡回演唱会”武汉站完成了人生第100场个人演唱会。2018年1月，歌曲《光年之外》MV在YouTube上达到1亿的观看量， 2023年1月突破2.6亿，保持YouTube华语歌观看量第一。《再见》、《倒数》和《来自天堂的魔鬼》亦先后于2019年至2021年突破1亿。2023年《喜欢你》亦以突破一亿成为第二高观看量广东歌MV，邓紫棋成为第一位拥有五支破亿MV的华语女歌手。2023年1月，邓紫棋的YouTube频道累积总观看量突破20亿。</p>
+
+      <p>邓紫棋获颁第27届KCA美国儿童选择奖“最受欢迎亚洲艺人”，第26届MTV欧洲音乐大奖（EMA）最佳中国大陆及香港地区歌手。曾登上福布斯中国百大名人权力榜两次（2014年第91位，2015年第11位），福布斯2016年全球30岁以下最具潜质音乐人名单“30 Under 30”中唯一在榜亚洲音乐人。</p>
+
+      <p>2019年3月7日晚上，邓紫棋发布与合作超过11年的蜂鸟音乐解约之消息，并于同年4月19日公布邓紫棋工作室以及G Nation唱片公司正式营业。</p>
+    </div>
+
     <div class="section-title">作品</div>
     <div class="album-grid">
       <a class="album-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=yJwl4bj5qRmF" target="_blank">
@@ -437,12 +420,11 @@
       </a>
       <a class="album-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=Rhejv4n9ZKzf" target="_blank">
         <div class="album-name">其他</div>
-        <div class="album-year">杂项作品</div>
+        <div class="album-year">2008 - Now</div>
       </a>
     </div>
   </section>
 </main>
-
 <div class="modal-overlay" id="fairyModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">&times;</button>
@@ -452,22 +434,17 @@
     <a class="modal-option" href="https://c6.y.qq.com/base/fcgi-bin/u?__=JK3wCaj5q1UI" target="_blank">睡皇后</a>
   </div>
 </div>
-
 <div class="disclaimer">此网站非官方网站，请仔细甄别</div>
-
 <script>
   function openModal() {
     document.getElementById('fairyModal').classList.add('active');
   }
-
   function closeModal() {
     document.getElementById('fairyModal').classList.remove('active');
   }
-
   document.getElementById('fairyModal').addEventListener('click', function (e) {
     if (e.target === this) closeModal();
   });
 </script>
-
 </body>
 </html>
