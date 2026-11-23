@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tour Schedule - G.E.M. Fans Hub Website</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    /* Gradient identical to Chinese version */
+    background: linear-gradient(135deg, #d8a94b 0%, #e4c574 20%, #c9a7e2 55%, #8b5fbf 100%);
+    background-attachment: fixed;
+    color: #fff;
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255, 221, 150, 0.35), transparent 26%),
+      radial-gradient(circle at 80% 0%, rgba(153, 92, 211, 0.45), transparent 28%),
+      radial-gradient(circle at 90% 90%, rgba(90, 40, 140, 0.35), transparent 30%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .topbar {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 0 28px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 14px rgba(60, 20, 100, 0.18);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .brand {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 10px rgba(110, 45, 170, 0.35);
+  }
+  .top-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 22px;
+    align-items: center;
+  }
+  .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.25s ease;
+    position: relative;
+    text-shadow: 0 1px 6px rgba(90, 30, 140, 0.25);
+  }
+  .nav-links a:hover,
+  .nav-links a.active {
+    border-bottom-color: #ffe28a;
+    color: #fff8c8;
+  }
+  .lang {
+    position: relative;
+    cursor: pointer;
+    color: #fff;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 0;
+    transition: color 0.25s;
+    text-shadow: 0 1px 6px rgba(90, 30, 140, 0.25);
+  }
+  .lang:hover {
+    color: #ffe28a;
+  }
+  .lang-dropdown {
+    display: none;
+    position: absolute;
+    top: 32px;
+    right: 0;
+    background: rgba(40, 10, 70, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    min-width: 120px;
+    padding: 6px 0;
+    z-index: 10;
+    box-shadow: 0 8px 20px rgba(60, 20, 100, 0.35);
+    overflow: hidden;
+  }
+  .lang-dropdown a {
+    display: block;
+    padding: 10px 16px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .lang-dropdown a:hover {
+    background: rgba(255, 226, 138, 0.18);
+  }
+  .lang:hover .lang-dropdown {
+    display: block;
+  }
+  .main {
+    position: relative;
+    z-index: 1;
+    padding: 48px 28px 90px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .page-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 36px;
+    text-shadow: 0 2px 10px rgba(60, 20, 100, 0.35);
+  }
+  .tour-section {
+    margin-bottom: 48px;
+  }
+  .tour-heading {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+    letter-spacing: 1.2px;
+    text-shadow: 0 2px 8px rgba(60, 20, 100, 0.35);
+  }
+  .tour-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .tour-card {
+    background: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 12px;
+    padding: 14px 16px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(60,20,100,0.12);
+  }
+  .tour-card:hover {
+    background: rgba(255, 255, 255, 0.32);
+    transform: translateY(-4px);
+    border-color: rgba(255, 226, 138, 0.55);
+    box-shadow: 0 10px 22px rgba(60,20,100,0.22);
+  }
+  .tour-date {
+    font-size: 13px;
+    color: #ffe9a8;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .tour-city {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .tour-venue {
+    font-size: 13px;
+    color: #f0e4f8;
+  }
+  .disclaimer {
+    position: fixed;
+    bottom: 16px;
+    right: 20px;
+    font-size: 12px;
+    color: #fff;
+    background: rgba(40, 10, 70, 0.45);
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  }
+  @media (max-width: 760px) {
+    .topbar {
+      flex-direction: column;
+      height: auto;
+      padding: 12px 16px;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .top-right {
+      width: 100%;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .nav-links { gap: 14px; flex-wrap: wrap; }
+    .main { padding: 28px 16px 80px; }
+    .tour-grid { grid-template-columns: 1fr; }
+    .page-title { font-size: 20px; }
+    .tour-heading { font-size:18px; }
+    .disclaimer {
+      bottom: 10px;
+      right: 10px;
+      font-size: 11px;
+      max-width: 180px;
+    }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">G.E.M. Fans Hub Website</div>
+  <div class="top-right">
+    <nav class="nav-links">
+      <a href="index-en.html">Home</a>
+      <a href="tour-en.html" class="active">Tour</a>
+      <a href="socials-en.html">Socials</a>
+      <a href="https://cn.iamgem.com" target="_blank">Official Store</a>
+      <a href="contact-en.html">Contact</a>
+    </nav>
+    <div class="lang">
+      🌐
+      <div class="lang-dropdown">
+        <a href="tour.html">简体中文</a>
+        <a href="tour-en.html">English</a>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="main">
+  <div class="page-title">Tour Schedule</div>
+  <!-- I AM GLORIA World Tour -->
+  <section class="tour-section">
+    <h2 class="tour-heading">I AM GLORIA WORLD TOUR</h2>
+    <div class="tour-grid">
+      <div class="tour-card"><div class="tour-date">2026/10/1‑2, 10/4‑5</div><div class="tour-city">Shenzhen</div><div class="tour-venue">Shenzhen Universiade Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2026/9/11‑13, 9/19‑20, 9/25‑27</div><div class="tour-city">Shenzhen</div><div class="tour-venue">Shenzhen Universiade Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2026/8/21‑23</div><div class="tour-city">Chongqing</div><div class="tour-venue">Chongqing Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2026/8/14‑16</div><div class="tour-city">Jiaxing</div><div class="tour-venue">Jiaxing Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2026/8/7‑9</div><div class="tour-city">Nanchang</div><div class="tour-venue">Nanchang International Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2026/7/24‑26</div><div class="tour-city">Tianjin</div><div class="tour-venue">Tianjin Olympic Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2026/6/6</div><div class="tour-city">Kuala Lumpur</div><div class="tour-venue">NATIONAL STADIUM BUKIT JALIL</div></div>
+      <div class="tour-card"><div class="tour-date">2026/5/23</div><div class="tour-city">Singapore</div><div class="tour-venue">NATIONAL STADIUM</div></div>
+      <div class="tour-card"><div class="tour-date">2026/5/1‑3</div><div class="tour-city">Xiamen</div><div class="tour-venue">Bailu Stadium, Xiamen Egret Sports Complex</div></div>
+      <div class="tour-card"><div class="tour-date">2026/4/9‑12</div><div class="tour-city">Taipei</div><div class="tour-venue">Taipei Dome</div></div>
+      <div class="tour-card"><div class="tour-date">2025/12/26‑28, 31, 2026/1/3‑4, 1/9‑10</div><div class="tour-city">Guangzhou</div><div class="tour-venue">Guangdong Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/12/6‑7</div><div class="tour-city">Sanya</div><div class="tour-venue">Bailu Stadium, Sanya Sports Center</div></div>
+      <div class="tour-card"><div class="tour-date">2025/11/29‑30</div><div class="tour-city">Nanning</div><div class="tour-venue">Guangxi Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/11/15‑16</div><div class="tour-city">Fuzhou</div><div class="tour-venue">Fuzhou Strait Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/11/1, 2</div><div class="tour-city">Wuhan</div><div class="tour-venue">Wuhan Sports Center Main Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/10/25</div><div class="tour-city">Xuzhou</div><div class="tour-venue">Xuzhou Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/10/18, 19</div><div class="tour-city">Chengdu</div><div class="tour-venue">Dong'an Lake Sports Park Main Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/8/29‑31, 9/5‑7, 12‑14, 19‑21</div><div class="tour-city">Shanghai</div><div class="tour-venue">Hongkou Football Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/8/15‑17, 19</div><div class="tour-city">Hong Kong</div><div class="tour-venue">Kai Tak Sports Park Main Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/8/2‑3</div><div class="tour-city">Ganzhou</div><div class="tour-venue">Ganzhou National Fitness Center</div></div>
+      <div class="tour-card"><div class="tour-date">2025/7/26‑27</div><div class="tour-city">Luoyang</div><div class="tour-venue">Luoyang Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/7/12‑13</div><div class="tour-city">Shenyang</div><div class="tour-venue">Shenyang Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/6/14</div><div class="tour-city">Shijiazhuang</div><div class="tour-venue">Hebei Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/5/31</div><div class="tour-city">Guiyang</div><div class="tour-venue">Guiyang Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/5/24‑25</div><div class="tour-city">Hengyang</div><div class="tour-venue">Hengyang Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/5/17‑5/18</div><div class="tour-city">Xiangyang</div><div class="tour-venue">Xiangyang Olympic Sports Center</div></div>
+      <div class="tour-card"><div class="tour-date">2025/5/10‑5/11</div><div class="tour-city">Wenzhou</div><div class="tour-venue">Wenzhou Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2025/4/7</div><div class="tour-city">Toronto</div><div class="tour-venue">COCA‑COLA COLISEUM</div></div>
+      <div class="tour-card"><div class="tour-date">2025/3/29</div><div class="tour-city">New York</div><div class="tour-venue">BARCLAYS CENTER</div></div>
+      <div class="tour-card"><div class="tour-date">2025/3/22</div><div class="tour-city">San Francisco</div><div class="tour-venue">CHASE CENTER</div></div>
+      <div class="tour-card"><div class="tour-date">2025/3/15</div><div class="tour-city">Las Vegas</div><div class="tour-venue">MGM GRAND GARDEN ARENA</div></div>
+      <div class="tour-card"><div class="tour-date">2025/3/1</div><div class="tour-city">Singapore</div><div class="tour-venue">NATIONAL STADIUM</div></div>
+      <div class="tour-card"><div class="tour-date">2025/2/15</div><div class="tour-city">Kuala Lumpur</div><div class="tour-venue">NATIONAL STADIUM BUKIT JALIL</div></div>
+      <div class="tour-card"><div class="tour-date">2025/1/24</div><div class="tour-city">London</div><div class="tour-venue">OVO ARENA WEMBLY</div></div>
+      <div class="tour-card"><div class="tour-date">2025/1/21</div><div class="tour-city">Paris</div><div class="tour-venue">ZENITH PARIS - LA VILLETTE</div></div>
+      <div class="tour-card"><div class="tour-date">2025/1/11‑1/12</div><div class="tour-city">Zhaoqing</div><div class="tour-venue">Zhaoqing Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/12/28‑29, 31</div><div class="tour-city">Huizhou</div><div class="tour-venue">Huizhou Olympic Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/12/21‑22</div><div class="tour-city">Xiamen</div><div class="tour-venue">Bailu Stadium, Xiamen Egret Sports Complex</div></div>
+      <div class="tour-card"><div class="tour-date">2024/11/30‑12/1</div><div class="tour-city">Zhanjiang</div><div class="tour-venue">Zhanjiang Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/11/15‑11/17</div><div class="tour-city">Hangzhou</div><div class="tour-venue">Hangzhou Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/11/9‑11/10</div><div class="tour-city">Nanchang</div><div class="tour-venue">Nanchang International Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/10/26‑10/27</div><div class="tour-city">Suzhou</div><div class="tour-venue">Suzhou Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/10/19‑10/20</div><div class="tour-city">Chongqing</div><div class="tour-venue">Chongqing Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/10/13</div><div class="tour-city">Jinan</div><div class="tour-venue">Jinan Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/10/6‑10/7</div><div class="tour-city">Wuhan</div><div class="tour-venue">Wuhan Sports Center Main Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/9/27‑9/28</div><div class="tour-city">Xi'an</div><div class="tour-venue">Xi'an Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/9/21‑9/22</div><div class="tour-city">Qingyuan</div><div class="tour-venue">Qingyuan Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/9/7</div><div class="tour-city">Quzhou</div><div class="tour-venue">Quzhou Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/8/22‑8/25</div><div class="tour-city">Beijing</div><div class="tour-venue">National Stadium (Bird's Nest)</div></div>
+      <div class="tour-card"><div class="tour-date">2024/8/2‑4, 9‑11</div><div class="tour-city">Macao, China</div><div class="tour-venue">Galaxy Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2024/7/27</div><div class="tour-city">Hohhot</div><div class="tour-venue">Hohhot Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/7/20‑7/21</div><div class="tour-city">Taizhou</div><div class="tour-venue">Taizhou Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/7/13</div><div class="tour-city">Harbin</div><div class="tour-venue">Harbin International Convention and Exhibition Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/7/6‑7/7</div><div class="tour-city">Fuzhou</div><div class="tour-venue">Fuzhou Strait Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/6/29</div><div class="tour-city">Zhengzhou</div><div class="tour-venue">Zhengzhou Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/6/22‑6/23</div><div class="tour-city">Nanjing</div><div class="tour-venue">Nanjing Olympic Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/6/15‑6/16</div><div class="tour-city">Qingdao</div><div class="tour-venue">Qingdao Citizen Fitness Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/6/1‑6/3</div><div class="tour-city">Chengdu</div><div class="tour-venue">Dong'an Lake Sports Park Main Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/5/24‑5/28</div><div class="tour-city">Shanghai</div><div class="tour-venue">Shanghai Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/5/18‑5/19</div><div class="tour-city">Taiyuan</div><div class="tour-venue">Shanxi Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/5/10‑5/11</div><div class="tour-city">Dalian</div><div class="tour-venue">Dalian Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/5/2‑5/3</div><div class="tour-city">Tianjin</div><div class="tour-venue">Tianjin Olympic Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/4/18‑4/21</div><div class="tour-city">Foshan</div><div class="tour-venue">Century Lotus Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/4/12‑4/14</div><div class="tour-city">Changsha</div><div class="tour-venue">Helong Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/3/30‑3/31</div><div class="tour-city">Hefei</div><div class="tour-venue">Hefei Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/1/20‑1/21</div><div class="tour-city">Quanzhou</div><div class="tour-venue">Quanzhou Strait Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2024/1/6‑1/8</div><div class="tour-city">Shenzhen</div><div class="tour-venue">Shenzhen Bay Sports Center “Spring Cocoon” Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2023/12/23‑12/24</div><div class="tour-city">Nanning</div><div class="tour-venue">Guangxi Sports Center Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2023/12/7‑12/9</div><div class="tour-city">Guangzhou</div><div class="tour-venue">Guangdong Olympic Sports Center Stadium</div></div>
+    </div>
+  </section>
+  <!-- Queen of Hearts World Tour -->
+  <section class="tour-section">
+    <h2 class="tour-heading">Queen of Hearts WORLD TOUR</h2>
+    <div class="tour-grid">
+      <div class="tour-card"><div class="tour-date">2019/4/27‑4/28</div><div class="tour-city">Kaohsiung</div><div class="tour-venue">Kaohsiung Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2019/4/5‑4/6</div><div class="tour-city">Genting Highlands, Malaysia</div><div class="tour-venue">Arena of Stars</div></div>
+      <div class="tour-card"><div class="tour-date">2019/3/22</div><div class="tour-city">San Francisco, USA</div><div class="tour-venue">Bill Graham Civic Auditorium</div></div>
+      <div class="tour-card"><div class="tour-date">2019/3/20</div><div class="tour-city">Toronto, Canada</div><div class="tour-venue">COCA‑COLA COLISEUM</div></div>
+      <div class="tour-card"><div class="tour-date">2019/3/15</div><div class="tour-city">Vancouver, Canada</div><div class="tour-venue">QUEEN ELIZABETH THEATRE</div></div>
+      <div class="tour-card"><div class="tour-date">2019/3/9</div><div class="tour-city">Macao</div><div class="tour-venue">Cotai Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2018/8/18</div><div class="tour-city">Xi'an</div><div class="tour-venue">Qujiang International Convention & Exhibition Center Hall B4</div></div>
+      <div class="tour-card"><div class="tour-date">2018/8/11</div><div class="tour-city">Tianjin</div><div class="tour-venue">Tianjin Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2018/8/4‑8/5</div><div class="tour-city">Shanghai</div><div class="tour-venue">Mercedes‑Benz Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2018/7/28</div><div class="tour-city">Jinan</div><div class="tour-venue">Jinan Olympic Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2018/7/7</div><div class="tour-city">Foshan</div><div class="tour-venue">Lingnan Pearl Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2018/6/30‑7/1</div><div class="tour-city">Penang, Malaysia</div><div class="tour-venue">Penang International Sports Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2018/6/2</div><div class="tour-city">Chengdu</div><div class="tour-venue">Wuliangye Chengdu Performing Arts Center</div></div>
+      <div class="tour-card"><div class="tour-date">2018/5/26</div><div class="tour-city">Dongguan</div><div class="tour-venue">Dongguan Basketball Center</div></div>
+      <div class="tour-card"><div class="tour-date">2018/4/1</div><div class="tour-city">Uncasville, USA</div><div class="tour-venue">MOHÉGAN SUN</div></div>
+      <div class="tour-card"><div class="tour-date">2018/3/23‑3/25</div><div class="tour-city">Taoyuan</div><div class="tour-venue">National Taiwan Sport University Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2018/2/24</div><div class="tour-city">Macao</div><div class="tour-venue">Cotai Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2018/1/13</div><div class="tour-city">Hangzhou</div><div class="tour-venue">Huanglong Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2017/12/22</div><div class="tour-city">Dalian</div><div class="tour-venue">Zhong升 Culture Center</div></div>
+      <div class="tour-card"><div class="tour-date">2017/12/9</div><div class="tour-city">Nanning</div><div class="tour-venue">Guangxi Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2017/12/2</div><div class="tour-city">Shenzhen</div><div class="tour-venue">Shenzhen Bay Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2017/11/25</div><div class="tour-city">Zhengzhou</div><div class="tour-venue">Zhengzhou International Convention and Exhibition Center</div></div>
+      <div class="tour-card"><div class="tour-date">2017/11/18</div><div class="tour-city">Kuala Lumpur, Malaysia</div><div class="tour-venue">Axiata Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2017/10/5</div><div class="tour-city">Perth, Australia</div><div class="tour-venue">CROWN PERTH</div></div>
+      <div class="tour-card"><div class="tour-date">2017/10/2</div><div class="tour-city">Sydney, Australia</div><div class="tour-venue">Sydney Convention Centre</div></div>
+      <div class="tour-card"><div class="tour-date">2017/9/30</div><div class="tour-city">Melbourne, Australia</div><div class="tour-venue">Melbourne Convention and Exhibition Centre</div></div>
+      <div class="tour-card"><div class="tour-date">2017/9/15‑9/17</div><div class="tour-city">Hong Kong</div><div class="tour-venue">Hong Kong Coliseum</div></div>
+      <div class="tour-card"><div class="tour-date">2017/9/2</div><div class="tour-city">Chongqing</div><div class="tour-venue">Chongqing International Expo Center</div></div>
+      <div class="tour-card"><div class="tour-date">2017/8/26</div><div class="tour-city">Hefei</div><div class="tour-venue">Hefei Binhu International Convention & Exhibition Center Main Hall</div></div>
+      <div class="tour-card"><div class="tour-date">2017/8/12‑8/13</div><div class="tour-city">Singapore</div><div class="tour-venue">Singapore Indoor Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2017/8/5</div><div class="tour-city">Suzhou</div><div class="tour-venue">Suzhou Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2017/5/28</div><div class="tour-city">Wuhan</div><div class="tour-venue">Wuhan Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2017/5/20</div><div class="tour-city">Changsha</div><div class="tour-venue">Hunan International Convention & Exhibition Center</div></div>
+      <div class="tour-card"><div class="tour-date">2017/5/13</div><div class="tour-city">Nanchang</div><div class="tour-venue">Nanchang International Sports Center</div></div>
+      <div class="tour-card"><div class="tour-date">2017/4/29</div><div class="tour-city">Luoyang</div><div class="tour-venue">Luoyang New District Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2017/4/15</div><div class="tour-city">Beijing</div><div class="tour-venue">Capital Indoor Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2017/4/8</div><div class="tour-city">Nanjing</div><div class="tour-venue">Nanjing Olympic Sports Center</div></div>
+      <div class="tour-card"><div class="tour-date">2017/4/1‑4/2</div><div class="tour-city">Guangzhou</div><div class="tour-venue">Guangzhou International Sports Arena</div></div>
+    </div>
+  </section>
+  <!-- G.E.M. X.X.X. Live World Tour -->
+  <section class="tour-section">
+    <h2 class="tour-heading">G.E.M. X.X.X. Live WORLD TOUR</h2>
+    <div class="tour-grid">
+      <div class="tour-card"><div class="tour-date">2015/11/22</div><div class="tour-city">London, UK</div><div class="tour-venue">Wembley Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2015/11/18</div><div class="tour-city">Chicago, USA</div><div class="tour-venue">CHICAGO THEATRE</div></div>
+      <div class="tour-card"><div class="tour-date">2015/11/15</div><div class="tour-city">Newark, USA</div><div class="tour-venue">PRUDENTIAL CENTER</div></div>
+      <div class="tour-card"><div class="tour-date">2015/11/11</div><div class="tour-city">Toronto, Canada</div><div class="tour-venue">AIR CANADA CENTRE</div></div>
+      <div class="tour-card"><div class="tour-date">2015/11/7</div><div class="tour-city">Inglewood, USA</div><div class="tour-venue">The Forum</div></div>
+      <div class="tour-card"><div class="tour-date">2015/11/6</div><div class="tour-city">San Jose, USA</div><div class="tour-venue">SAP CENTER AT SAN JOSE</div></div>
+      <div class="tour-card"><div class="tour-date">2015/11/3</div><div class="tour-city">Vancouver, Canada</div><div class="tour-venue">PACIFIC COLISEUM</div></div>
+      <div class="tour-card"><div class="tour-date">2015/10/23‑10/24</div><div class="tour-city">Genting Highlands, Malaysia</div><div class="tour-venue">Arena of Stars</div></div>
+      <div class="tour-card"><div class="tour-date">2015/8/1</div><div class="tour-city">Beijing</div><div class="tour-venue">Beijing Workers' Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2015/7/25</div><div class="tour-city">Taiyuan</div><div class="tour-venue">Shanxi Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2015/7/18</div><div class="tour-city">Dongguan</div><div class="tour-venue">Dongguan Basketball Center</div></div>
+      <div class="tour-card"><div class="tour-date">2015/7/10</div><div class="tour-city">Changchun</div><div class="tour-venue">Changchun Wuhuan Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2015/5/30</div><div class="tour-city">Hefei</div><div class="tour-venue">Hefei Binhu International Convention & Exhibition Center</div></div>
+      <div class="tour-card"><div class="tour-date">2015/5/23</div><div class="tour-city">Shanghai</div><div class="tour-venue">Shanghai Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2015/5/16</div><div class="tour-city">Huizhou</div><div class="tour-venue">Huizhou Olympic Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2015/5/9</div><div class="tour-city">Chongqing</div><div class="tour-venue">Chongqing International Convention & Exhibition Center</div></div>
+      <div class="tour-card"><div class="tour-date">2015/5/2</div><div class="tour-city">Kaohsiung</div><div class="tour-venue">Kaohsiung Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2015/3/12</div><div class="tour-city">Taipei</div><div class="tour-venue">Taipei Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2015/3/1</div><div class="tour-city">Uncasville, USA</div><div class="tour-venue">MOHÉGAN SUN</div></div>
+      <div class="tour-card"><div class="tour-date">2015/2/21</div><div class="tour-city">Las Vegas, USA</div><div class="tour-venue">THE VENETIAN LAS VEGAS</div></div>
+      <div class="tour-card"><div class="tour-date">2015/1/30‑2/1</div><div class="tour-city">Singapore</div><div class="tour-venue">Singapore Expo</div></div>
+      <div class="tour-card"><div class="tour-date">2015/1/23‑1/24</div><div class="tour-city">Kuala Lumpur, Malaysia</div><div class="tour-venue">Putra Indoor Stadium</div></div>
+      <div class="tour-card"><div class="tour-date">2015/1/14‑1/18</div><div class="tour-city">Hong Kong</div><div class="tour-venue">Hong Kong Coliseum</div></div>
+      <div class="tour-card"><div class="tour-date">2014/12/6</div><div class="tour-city">Jinan</div><div class="tour-venue">Jinan Olympic Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2014/11/29</div><div class="tour-city">Nanchang</div><div class="tour-venue">Nanchang International Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2014/11/22</div><div class="tour-city">Nanning</div><div class="tour-venue">Guangxi Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2014/11/8</div><div class="tour-city">Nanjing</div><div class="tour-venue">Nanjing Olympic Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2014/11/1</div><div class="tour-city">Quanzhou</div><div class="tour-venue">Quanzhou Strait Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2014/10/25</div><div class="tour-city">Chengdu</div><div class="tour-venue">Chengdu Sports Center</div></div>
+      <div class="tour-card"><div class="tour-date">2014/10/17‑10/19</div><div class="tour-city">Guangzhou</div><div class="tour-venue">Guangzhou International Sports Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2014/10/10</div><div class="tour-city">Shenyang</div><div class="tour-venue">Shenyang Olympic Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2014/8/11</div><div class="tour-city">Auckland, New Zealand</div><div class="tour-venue">TRUSTS STADIUM</div></div>
+      <div class="tour-card"><div class="tour-date">2014/8/9</div><div class="tour-city">Melbourne, Australia</div><div class="tour-venue">MELBOURNE CONVENTION AND EXHIBITION CENTRE</div></div>
+      <div class="tour-card"><div class="tour-date">2014/8/7</div><div class="tour-city">Sydney, Australia</div><div class="tour-venue">SYDNEY ENTERTAINMENT CENTRE</div></div>
+      <div class="tour-card"><div class="tour-date">2014/8/5</div><div class="tour-city">Perth, Australia</div><div class="tour-venue">CROWN PERTH</div></div>
+      <div class="tour-card"><div class="tour-date">2014/8/2</div><div class="tour-city">Zhengzhou</div><div class="tour-venue">Zhengzhou International Convention and Exhibition Center</div></div>
+      <div class="tour-card"><div class="tour-date">2014/7/31</div><div class="tour-city">Xiamen</div><div class="tour-venue">Xiamen International Convention & Exhibition Center</div></div>
+      <div class="tour-card"><div class="tour-date">2014/7/26</div><div class="tour-city">Tianjin</div><div class="tour-venue">Tianjin Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2014/7/23</div><div class="tour-city">Dalian</div><div class="tour-venue">Zhong升 Culture Center</div></div>
+      <div class="tour-card"><div class="tour-date">2014/7/19</div><div class="tour-city">Harbin</div><div class="tour-venue">Harbin International Convention and Exhibition Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2014/7/17</div><div class="tour-city">Xi'an</div><div class="tour-venue">Qujiang International Convention & Exhibition Center Hall B4</div></div>
+      <div class="tour-card"><div class="tour-date">2014/7/11‑7/12</div><div class="tour-city">Hangzhou</div><div class="tour-venue">Huanglong Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2014/7/4‑7/6</div><div class="tour-city">Shanghai</div><div class="tour-venue">Mercedes‑Benz Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2014/6/28</div><div class="tour-city">Shenzhen</div><div class="tour-venue">Shenzhen Bay Sports Center</div></div>
+      <div class="tour-card"><div class="tour-date">2014/5/31</div><div class="tour-city">Changsha</div><div class="tour-venue">Hunan International Convention & Exhibition Center</div></div>
+      <div class="tour-card"><div class="tour-date">2014/5/24</div><div class="tour-city">Wuhan</div><div class="tour-venue">Wuhan Sports Center Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2014/5/16‑5/17</div><div class="tour-city">Beijing</div><div class="tour-venue">MasterCard Center (Cadillac Arena)</div></div>
+      <div class="tour-card"><div class="tour-date">2014/5/10</div><div class="tour-city">Fuzhou</div><div class="tour-venue">Fuzhou Strait International Conference & Exhibition Center Hall 1</div></div>
+      <div class="tour-card"><div class="tour-date">2014/5/1‑5/3</div><div class="tour-city">Macao, China</div><div class="tour-venue">Cotai Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2014/2/13</div><div class="tour-city">Foshan</div><div class="tour-venue">Lingnan Pearl Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2013/9/21</div><div class="tour-city">Guangzhou</div><div class="tour-venue">Guangzhou Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2013/4/12‑4/16</div><div class="tour-city">Hong Kong</div><div class="tour-venue">Hong Kong Coliseum</div></div>
+    </div>
+  </section>
+  <!-- G.E.M. Get Everybody Moving World Tour -->
+  <section class="tour-section">
+    <h2 class="tour-heading">G.E.M. Get Everybody Moving WORLD TOUR</h2>
+    <div class="tour-grid">
+      <div class="tour-card"><div class="tour-date">2012/5/26</div><div class="tour-city">Reno, USA</div><div class="tour-venue">RENO BALLROOM (Nevada)</div></div>
+      <div class="tour-card"><div class="tour-date">2012/4/29</div><div class="tour-city">Guangzhou</div><div class="tour-venue">Panyu Yingdong Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2012/4/21</div><div class="tour-city">Foshan</div><div class="tour-venue">Lingnan Pearl Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2011/12/19</div><div class="tour-city">Toronto, Canada</div><div class="tour-venue">HERSHEY CENTRE</div></div>
+      <div class="tour-card"><div class="tour-date">2011/12/16</div><div class="tour-city">Vancouver, Canada</div><div class="tour-venue">QUEEN ELIZABETH THEATRE</div></div>
+      <div class="tour-card"><div class="tour-date">2011/10/22</div><div class="tour-city">Macao</div><div class="tour-venue">Cotai Arena</div></div>
+      <div class="tour-card"><div class="tour-date">2011/10/15</div><div class="tour-city">Guangzhou</div><div class="tour-venue">Guangzhou Gymnasium</div></div>
+      <div class="tour-card"><div class="tour-date">2011/9/9‑9/10</div><div class="tour-city">Hong Kong</div><div class="tour-venue">Hong Kong Coliseum</div></div>
+      <div class="tour-card"><div class="tour-date">2011/8/27</div><div class="tour-city">Sydney, Australia</div><div class="tour-venue">SYDNEY ENTERTAINMENT CENTRE</div></div>
+      <div class="tour-card"><div class="tour-date">2011/5/14‑5/16</div><div class="tour-city">Hong Kong</div><div class="tour-venue">Hong Kong Coliseum</div></div>
+    </div>
+  </section>
+</main>
+<div class="disclaimer">This is not an official website, please distinguish carefully.</div>
+</body>
+</html>
