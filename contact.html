@@ -10,11 +10,9 @@
     padding: 0;
     box-sizing: border-box;
   }
-
   html {
     scroll-behavior: smooth;
   }
-
   body {
     background: linear-gradient(135deg, #d8a94b 0%, #e4c574 20%, #c9a7e2 55%, #8b5fbf 100%);
     background-attachment: fixed;
@@ -25,7 +23,6 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-
   body::before {
     content: "";
     position: fixed;
@@ -37,7 +34,6 @@
     pointer-events: none;
     z-index: 0;
   }
-
   .topbar {
     background: rgba(255, 255, 255, 0.18);
     backdrop-filter: blur(14px);
@@ -53,7 +49,6 @@
     top: 0;
     z-index: 50;
   }
-
   .brand {
     font-size: 18px;
     font-weight: 700;
@@ -62,19 +57,16 @@
     letter-spacing: 0.5px;
     text-shadow: 0 2px 10px rgba(110, 45, 170, 0.35);
   }
-
   .top-right {
     display: flex;
     align-items: center;
     gap: 24px;
   }
-
   .nav-links {
     display: flex;
     gap: 22px;
     align-items: center;
   }
-
   .nav-links a {
     color: #fff;
     text-decoration: none;
@@ -90,7 +82,6 @@
     border-bottom-color: #ffe28a;
     color: #fff8c8;
   }
-
   .lang {
     position: relative;
     cursor: pointer;
@@ -106,7 +97,6 @@
   .lang:hover {
     color: #ffe28a;
   }
-
   .lang-dropdown {
     display: none;
     position: absolute;
@@ -137,7 +127,6 @@
   .lang:hover .lang-dropdown {
     display: block;
   }
-
   .main {
     position: relative;
     z-index: 1;
@@ -145,7 +134,6 @@
     max-width: 1020px;
     margin: 0 auto;
   }
-
   .page-title {
     font-size: 24px;
     font-weight: 700;
@@ -157,7 +145,6 @@
     margin-bottom:32px;
     opacity:0.92;
   }
-
   .section-title {
     font-size: 18px;
     font-weight: 600;
@@ -166,7 +153,6 @@
     padding-bottom:10px;
     border-bottom:2px solid rgba(255,255,255,0.35);
   }
-
   .contact-grid{
     display:grid;
     grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
@@ -202,7 +188,6 @@
     font-size:13px;
     color:#ffe9a8;
   }
-
   .disclaimer {
     position: fixed;
     bottom: 16px;
@@ -216,7 +201,6 @@
     z-index: 999;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
   }
-
   @media (max-width: 760px) {
     .topbar {
       flex-direction: column;
@@ -266,7 +250,6 @@
 <main class="main">
   <div class="page-title">联系我们</div>
   <div class="page-desc">本网站为粉丝制作的非官方网站，有建议、反馈、BUG上报可通过下方渠道联系。</div>
-
   <div class="section-title">联系渠道</div>
   <div class="contact-grid">
     <!-- 邮箱卡片：mailto 唤起邮件客户端，不需要target -->
@@ -276,7 +259,6 @@
         <div class="contact-desc-text">反馈daixiawunian@qq.com</div>
       </a>
     </div>
-
     <!-- 抖音 G.E.M. FANS -->
     <div class="contact-card">
       <a href="https://v.douyin.com/_BlTUaIItIE/" target="_blank">
@@ -284,7 +266,6 @@
         <div class="contact-desc-text">资料</div>
       </a>
     </div>
-
     <!-- 抖音 呆下午年 -->
     <div class="contact-card">
       <a href="https://v.douyin.com/3Iv2hOD0EG0/" target="_blank">
@@ -292,12 +273,18 @@
         <div class="contact-desc-text">代码</div>
       </a>
     </div>
-
     <!-- QQ群 -->
     <div class="contact-card">
       <a href="https://qm.qq.com/q/BnYsfWUYzm" target="_blank">
         <div class="contact-name">QQ简体中文区群聊</div>
-        <div class="contact-desc-text">交流</div>
+        <div class="contact-desc-text">简中交流</div>
+      </a>
+    </div>
+    <!-- Zulip英文社区 -->
+    <div class="contact-card">
+      <a href="https://geteverybodymovingfans.zulipchat.com/" target="_blank">
+        <div class="contact-name">Zulip 英文区群组</div>
+        <div class="contact-desc-text">英文交流</div>
       </a>
     </div>
   </div>
